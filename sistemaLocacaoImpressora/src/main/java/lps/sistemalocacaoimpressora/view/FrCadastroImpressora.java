@@ -4,7 +4,6 @@
  */
 package lps.sistemalocacaoimpressora.view;
 
-import java.awt.HeadlessException;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import lps.sistemalocacaoimpressora.controller.ImpressoraController;
@@ -14,7 +13,7 @@ public class FrCadastroImpressora extends javax.swing.JFrame {
 
     JFrame telaAnterior;
     ImpressoraController impressoraController;
-    int idImpressoraEditando;
+    long idImpressoraEditando;
 
     /**
      * Creates new form FrImpressora
@@ -26,6 +25,7 @@ public class FrCadastroImpressora extends javax.swing.JFrame {
 
         this.habilitarCampos(false);
         this.limparCampos();
+        impressoraController.atualizarTabela(grdImpressora);
     }
 
     public void habilitarCampos(boolean flag) {
@@ -91,6 +91,7 @@ public class FrCadastroImpressora extends javax.swing.JFrame {
         btnSalvar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         grdImpressora = new javax.swing.JTable();
+        btnVoltar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -249,12 +250,19 @@ public class FrCadastroImpressora extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(grdImpressora);
 
+        btnVoltar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/exit.png"))); // NOI18N
+        btnVoltar.setText("Voltar");
+        btnVoltar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVoltarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(lblTitulo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(panFormulario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -269,7 +277,10 @@ public class FrCadastroImpressora extends javax.swing.JFrame {
                         .addComponent(btnCancelar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnSalvar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnVoltar)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+            .addComponent(panFormulario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -281,7 +292,8 @@ public class FrCadastroImpressora extends javax.swing.JFrame {
                     .addComponent(btnEditar)
                     .addComponent(btnExcluir)
                     .addComponent(btnCancelar)
-                    .addComponent(btnSalvar))
+                    .addComponent(btnSalvar)
+                    .addComponent(btnVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(panFormulario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -395,6 +407,12 @@ public class FrCadastroImpressora extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_edtColoridaActionPerformed
 
+    private void btnVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVoltarActionPerformed
+        // TODO add your handling code here:
+        this.telaAnterior.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_btnVoltarActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancelar;
@@ -402,6 +420,7 @@ public class FrCadastroImpressora extends javax.swing.JFrame {
     private javax.swing.JButton btnExcluir;
     private javax.swing.JButton btnNovo;
     private javax.swing.JButton btnSalvar;
+    private javax.swing.JButton btnVoltar;
     private javax.swing.JTextField edtColorida;
     private javax.swing.JTextField edtMarca;
     private javax.swing.JTextField edtModelo;

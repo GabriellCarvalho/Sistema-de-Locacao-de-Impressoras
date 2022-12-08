@@ -4,6 +4,8 @@
  */
 package lps.sistemalocacaoimpressora.controller;
 
+import java.util.List;
+import javax.swing.JTable;
 import lps.sistemalocacaoimpressora.model.Cliente;
 import lps.sistemalocacaoimpressora.model.dao.ClienteDAO;
 
@@ -24,4 +26,30 @@ public class ClienteController {
             throw new Exception("Error - Já existe um cliente com este 'CPF'.");
         }
     }
+
+    public void atualizarTabela(JTable grd) {
+        List<Cliente> lst = repositorio.findAll();
+
+        TMCadCliente tmCliente = new TMCadCliente(lst);
+        grd.setModel(tmCliente);
+    }
+
+    public void excluirCliente(Cliente cliente) throws Exception {
+        if (cliente != null) {
+            repositorio.delete(cliente);
+        } else {
+            throw new Exception("Error - cliente inexistente.");
+        }
+    }
+    
+    public void atualizarCliente(long idCliente, String nome, String idade, String sexo, String cpf, String email, String senha){
+        Cliente novoCliente;
+        novoCliente = new Cliente(nome,Integer.parseInt(idade), sexo.charAt(0), cpf, email, senha);
+        repositorio.update(novoCliente);
+    }
+    
+    public Cliente buscarCliente(String cpf){
+        return (Cliente) this.repositorio.findByCpf(cpf);
+    }
+    
 }

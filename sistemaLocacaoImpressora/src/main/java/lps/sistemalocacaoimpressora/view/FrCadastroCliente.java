@@ -7,11 +7,13 @@ package lps.sistemalocacaoimpressora.view;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import lps.sistemalocacaoimpressora.controller.ClienteController;
+import lps.sistemalocacaoimpressora.model.Cliente;
 
 public class FrCadastroCliente extends javax.swing.JFrame {
-    
+
     JFrame telaAnterior;
     ClienteController clienteController;
+    long idClienteEditando;
 
     /**
      * Creates new form FrCliente
@@ -22,6 +24,43 @@ public class FrCadastroCliente extends javax.swing.JFrame {
         this.telaAnterior = telaQueChamou;
         clienteController = new ClienteController();
         initComponents();
+
+        this.habilitarCampos(false);
+        this.limparCampos();
+        clienteController.atualizarTabela(grdCliente);
+    }
+
+    public void habilitarCampos(boolean flag) {
+        for (int i = 0; i < panFormulario.getComponents().length; i++) {
+            panFormulario.getComponent(i).setEnabled(flag);
+        }
+    }
+
+    public void limparCampos() {
+        edtNome.setText("");
+        edtIdade.setText("");
+        edtSexo.setText("");
+        edtCpf.setText("");
+        edtEmail.setText("");
+        edtSenha.setText("");
+    }
+
+    private Object getObjetoSelecionadoNaGrid() {
+        int rowCliked = grdCliente.getSelectedRow();
+        Object obj = null;
+        if (rowCliked >= 0) {
+            obj = grdCliente.getModel().getValueAt(rowCliked, -1);
+        }
+        return obj;
+    }
+
+    public void preencherFormulario(Cliente c) {
+        edtNome.setText(c.getNome());
+        edtIdade.setText(c.getIdade() + "");
+        edtSexo.setText(c.getSexo() + "");
+        edtCpf.setText(c.getCPF());
+        edtEmail.setText(c.getEmail());
+        edtSenha.setText(c.getSenha());
     }
 
     /**
@@ -34,8 +73,6 @@ public class FrCadastroCliente extends javax.swing.JFrame {
     private void initComponents() {
 
         lblTitulo = new javax.swing.JLabel();
-        btnSair = new javax.swing.JButton();
-        btnCadastrar = new javax.swing.JButton();
         panFormulario = new javax.swing.JPanel();
         lblNome = new javax.swing.JLabel();
         edtNome = new javax.swing.JTextField();
@@ -49,6 +86,14 @@ public class FrCadastroCliente extends javax.swing.JFrame {
         edtEmail = new javax.swing.JTextField();
         lblSenha = new javax.swing.JLabel();
         edtSenha = new javax.swing.JTextField();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        grdCliente = new javax.swing.JTable();
+        btnVoltar = new javax.swing.JButton();
+        btnSalvar = new javax.swing.JButton();
+        btnNovo = new javax.swing.JButton();
+        btnEditar = new javax.swing.JButton();
+        btnCancelar = new javax.swing.JButton();
+        btnExcluir = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -60,20 +105,6 @@ public class FrCadastroCliente extends javax.swing.JFrame {
         lblTitulo.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
         lblTitulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblTitulo.setText("Cadastro de Cliente");
-
-        btnSair.setText("Sair");
-        btnSair.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSairActionPerformed(evt);
-            }
-        });
-
-        btnCadastrar.setText("Cadastar");
-        btnCadastrar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCadastrarActionPerformed(evt);
-            }
-        });
 
         lblNome.setText("Nome Completo");
 
@@ -153,7 +184,7 @@ public class FrCadastroCliente extends javax.swing.JFrame {
         panFormularioLayout.setVerticalGroup(
             panFormularioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panFormularioLayout.createSequentialGroup()
-                .addGap(43, 43, 43)
+                .addContainerGap()
                 .addGroup(panFormularioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(edtNome)
                     .addComponent(lblNome))
@@ -177,53 +208,136 @@ public class FrCadastroCliente extends javax.swing.JFrame {
                 .addGroup(panFormularioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(edtSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblSenha))
-                .addContainerGap(35, Short.MAX_VALUE))
+                .addGap(20, 20, 20))
         );
+
+        grdCliente.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {},
+                {},
+                {},
+                {}
+            },
+            new String [] {
+
+            }
+        ));
+        jScrollPane1.setViewportView(grdCliente);
+
+        btnVoltar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/exit.png"))); // NOI18N
+        btnVoltar.setText("Voltar");
+        btnVoltar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVoltarActionPerformed(evt);
+            }
+        });
+
+        btnSalvar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/save_32x32.png"))); // NOI18N
+        btnSalvar.setText("Salvar");
+        btnSalvar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalvarActionPerformed(evt);
+            }
+        });
+
+        btnNovo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/novo_32x32.png"))); // NOI18N
+        btnNovo.setText("Novo");
+        btnNovo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNovoActionPerformed(evt);
+            }
+        });
+
+        btnEditar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/edit3_32x32.png"))); // NOI18N
+        btnEditar.setText("Editar");
+        btnEditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditarActionPerformed(evt);
+            }
+        });
+
+        btnCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/cancel_32x32.png"))); // NOI18N
+        btnCancelar.setText("Cancelar");
+        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelarActionPerformed(evt);
+            }
+        });
+
+        btnExcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/del_32x32.png"))); // NOI18N
+        btnExcluir.setText("Excluir");
+        btnExcluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExcluirActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(lblTitulo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(panFormulario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jScrollPane1)
             .addGroup(layout.createSequentialGroup()
-                .addGap(100, 100, 100)
-                .addComponent(btnSair)
-                .addGap(125, 125, 125)
-                .addComponent(btnCadastrar)
-                .addContainerGap(91, Short.MAX_VALUE))
+                .addContainerGap()
+                .addComponent(btnNovo)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnEditar)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnExcluir)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnCancelar)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnSalvar)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnVoltar)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(panFormulario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(lblTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnSalvar)
+                    .addComponent(btnNovo)
+                    .addComponent(btnVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnEditar)
+                    .addComponent(btnCancelar)
+                    .addComponent(btnExcluir))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(panFormulario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnSair)
-                    .addComponent(btnCadastrar))
-                .addContainerGap(39, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSairActionPerformed
+    private void btnVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVoltarActionPerformed
         // TODO add your handling code here:
         this.telaAnterior.setVisible(true);
         this.setVisible(false);
-    }//GEN-LAST:event_btnSairActionPerformed
+    }//GEN-LAST:event_btnVoltarActionPerformed
 
-    private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
+    private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
         // TODO add your handling code here:
         try {
-            clienteController.cadastrarCliente(edtNome.getText(), edtIdade.getText(), edtSexo.getText(), edtCpf.getText(), edtEmail.getText(), edtSenha.getText());
+            if (idClienteEditando > 0) {
+                clienteController.atualizarCliente(idClienteEditando, edtNome.getText(), edtIdade.getText(), edtSexo.getText(), edtCpf.getText(), edtEmail.getText(), edtSenha.getText());
+            } else {
+                clienteController.cadastrarCliente(edtNome.getText(), edtIdade.getText(), edtSexo.getText(), edtCpf.getText(), edtEmail.getText(), edtSenha.getText());
+            }
+            this.idClienteEditando = -1;
+            clienteController.atualizarTabela(grdCliente);
+            this.habilitarCampos(false);
+            this.limparCampos();
         } catch (Exception ex) {
             System.err.println(ex.getMessage());
             JOptionPane.showMessageDialog(this, ex.getMessage());
         }
-    }//GEN-LAST:event_btnCadastrarActionPerformed
+    }//GEN-LAST:event_btnSalvarActionPerformed
 
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
         // TODO add your handling code here:
@@ -255,15 +369,71 @@ public class FrCadastroCliente extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_edtSenhaActionPerformed
 
+    private void btnNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoActionPerformed
+        // TODO add your handling code here:
+        this.limparCampos();
+        this.habilitarCampos(true);
+    }//GEN-LAST:event_btnNovoActionPerformed
+
+    private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
+        // TODO add your handling code here:
+        Cliente clienteEditando = (Cliente) this.getObjetoSelecionadoNaGrid();
+        if (clienteEditando == null)
+            JOptionPane.showMessageDialog(this, "Primeiro selecione um registro na tabela.");
+        else {
+            this.limparCampos();
+            this.habilitarCampos(true);
+            this.preencherFormulario(clienteEditando);
+            this.idClienteEditando = clienteEditando.getId();
+        }
+    }//GEN-LAST:event_btnEditarActionPerformed
+
+    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
+        // TODO add your handling code here:
+        this.limparCampos();
+        this.habilitarCampos(false);
+    }//GEN-LAST:event_btnCancelarActionPerformed
+
+    private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
+        // TODO add your handling code here:
+        Cliente clienteExcluido = (Cliente) this.getObjetoSelecionadoNaGrid();
+        if (clienteExcluido == null) {
+            JOptionPane.showMessageDialog(this, "Primeiro selecione um registro na tabela.");
+        } else {
+            int response = JOptionPane.showConfirmDialog(null,
+                    "Deseja exlcuir o Cliente \n("
+                    + clienteExcluido.getNome() + ", "
+                    + clienteExcluido.getCPF() + ") ?",
+                    "Confirmar exclusão",
+                    JOptionPane.OK_CANCEL_OPTION,
+                    JOptionPane.QUESTION_MESSAGE);
+            if (response == JOptionPane.OK_OPTION) {
+                try {
+                    clienteController.excluirCliente(clienteExcluido);
+                    clienteController.atualizarTabela(grdCliente);
+                    JOptionPane.showMessageDialog(this, "Exclusão feita com sucesso!");
+                } catch (Exception ex) {
+                    JOptionPane.showMessageDialog(this, ex.getMessage());
+                }
+            }
+        }
+    }//GEN-LAST:event_btnExcluirActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnCadastrar;
-    private javax.swing.JButton btnSair;
+    private javax.swing.JButton btnCancelar;
+    private javax.swing.JButton btnEditar;
+    private javax.swing.JButton btnExcluir;
+    private javax.swing.JButton btnNovo;
+    private javax.swing.JButton btnSalvar;
+    private javax.swing.JButton btnVoltar;
     private javax.swing.JTextField edtCpf;
     private javax.swing.JTextField edtEmail;
     private javax.swing.JTextField edtIdade;
     private javax.swing.JTextField edtNome;
     private javax.swing.JTextField edtSenha;
     private javax.swing.JTextField edtSexo;
+    private javax.swing.JTable grdCliente;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblCpf;
     private javax.swing.JLabel lblEmail;
     private javax.swing.JLabel lblIdade;

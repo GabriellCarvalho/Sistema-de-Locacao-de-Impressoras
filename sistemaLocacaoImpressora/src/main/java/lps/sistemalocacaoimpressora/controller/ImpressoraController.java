@@ -29,7 +29,7 @@ public class ImpressoraController {
         }
     }
 
-    public void atualizarImpressora(int idImpressora, String nome, String marca, String modelo, String tipo, String colorida) {
+    public void atualizarImpressora(long idImpressora, String nome, String marca, String modelo, String tipo, String colorida) {
         Impressora novaImpressora;
         if(colorida == "sim")
             novaImpressora = new Impressora(nome, marca, modelo, tipo, true);
@@ -41,7 +41,7 @@ public class ImpressoraController {
     }
 
     public void atualizarTabela(JTable grd) {
-        List<Object> lst = repositorio.findAll();
+        List<Impressora> lst = repositorio.findAll();
         
         TMCadImpressora tmImpressora = new TMCadImpressora(lst);
         grd.setModel(tmImpressora);    

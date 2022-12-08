@@ -6,19 +6,19 @@ package lps.sistemalocacaoimpressora.controller;
 
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
-import lps.sistemalocacaoimpressora.model.Impressora;
+import lps.sistemalocacaoimpressora.model.Funcionario;
 
-public class TMCadImpressora extends AbstractTableModel {
+public class TMCadFuncionario extends AbstractTableModel {
 
-    private List<Impressora> lista;
+    private List<Funcionario> lista;
     private final int COL_NOME = 0;
-    private final int COL_MARCA = 1;
-    private final int COL_MODELO = 2;
-    private final int COL_TIPO = 3;
-    private final int COL_COLORIDA = 4;
+    private final int COL_IDADE = 1;
+    private final int COL_SEXO = 2;
+    private final int COL_CPF = 3;
+    private final int COL_CARGO = 4;
 
-    public TMCadImpressora(List<Impressora> lstImpressora) {
-        lista = lstImpressora;
+    public TMCadFuncionario(List<Funcionario> lstFuncionario) {
+        lista = lstFuncionario;
     }
 
     @Override
@@ -33,30 +33,30 @@ public class TMCadImpressora extends AbstractTableModel {
 
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
-        Impressora impressora = new Impressora();
+        Funcionario funcionario = new Funcionario();
         if (lista.isEmpty()) {
-            return impressora;
+            return funcionario;
         } else {
-            impressora = (Impressora) lista.get(rowIndex);
+            funcionario = (Funcionario) lista.get(rowIndex);
 
             switch (columnIndex) {
                 case -1:
-                    return impressora;
+                    return funcionario;
                 case COL_NOME:
-                    return impressora.getNome();
-                case COL_MARCA:
-                    return impressora.getMarca();
-                case COL_MODELO:
-                    return impressora.getModelo();
-                case COL_TIPO:
-                    return impressora.getTipo();
-                case COL_COLORIDA:
-                    return impressora.isColorida();
+                    return funcionario.getNome();
+                case COL_IDADE:
+                    return funcionario.getIdade();
+                case COL_SEXO:
+                    return funcionario.getSexo();
+                case COL_CPF:
+                    return funcionario.getCPF();
+                case COL_CARGO:
+                    return funcionario.getCargo();
                 default:
                     break;
             }
         }
-        return impressora;
+        return funcionario;
     }
 
     @Override
@@ -70,14 +70,14 @@ public class TMCadImpressora extends AbstractTableModel {
         switch (column) {
             case COL_NOME:
                 return "Nome";
-            case COL_MARCA:
-                return "Marca";
-            case COL_MODELO:
-                return "Modelo";
-            case COL_TIPO:
-                return "Tipo";
-            case COL_COLORIDA:
-                return "Colorida";
+            case COL_IDADE:
+                return "Idade";
+            case COL_SEXO:
+                return "Sexo";
+            case COL_CPF:
+                return "CPF";
+            case COL_CARGO:
+                return "Cargo";
             default:
                 break;
         }

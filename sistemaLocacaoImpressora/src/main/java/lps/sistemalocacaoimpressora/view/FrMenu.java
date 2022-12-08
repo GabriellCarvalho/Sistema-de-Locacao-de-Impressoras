@@ -12,6 +12,7 @@ public class FrMenu extends javax.swing.JFrame {
      */
     public FrMenu() {
         initComponents();
+     
     }
 
     /**

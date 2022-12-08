@@ -28,12 +28,21 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Component id="lblTitulo" alignment="0" max="32767" attributes="0"/>
           <Component id="panFormulario" alignment="0" max="32767" attributes="0"/>
+          <Component id="jScrollPane1" alignment="0" max="32767" attributes="0"/>
           <Group type="102" alignment="0" attributes="0">
-              <EmptySpace min="-2" pref="100" max="-2" attributes="0"/>
-              <Component id="btnSair" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="125" max="-2" attributes="0"/>
-              <Component id="btnCadastrar" min="-2" max="-2" attributes="0"/>
-              <EmptySpace pref="85" max="32767" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="btnNovo" min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="btnEditar" min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="btnExcluir" min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="btnCancelar" min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="btnSalvar" min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="btnVoltar" min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -41,14 +50,19 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
               <Component id="lblTitulo" min="-2" pref="45" max="-2" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
-              <Component id="panFormulario" min="-2" max="-2" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="btnSair" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="btnCadastrar" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnNovo" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnEditar" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnCancelar" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnExcluir" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnSalvar" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnVoltar" alignment="0" max="32767" attributes="0"/>
               </Group>
-              <EmptySpace pref="36" max="32767" attributes="0"/>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Component id="panFormulario" min="-2" max="-2" attributes="0"/>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <Component id="jScrollPane1" min="-2" pref="211" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -63,14 +77,6 @@
         <Property name="text" type="java.lang.String" value="Cadastro de Funcionario"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JButton" name="btnSair">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Sair"/>
-      </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnSairActionPerformed"/>
-      </Events>
-    </Component>
     <Container class="javax.swing.JPanel" name="panFormulario">
 
       <Layout>
@@ -78,61 +84,89 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace min="-2" pref="58" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="1" attributes="0">
-                              <Component id="lblSenha" alignment="1" min="-2" pref="37" max="-2" attributes="0"/>
-                              <Component id="lblCpf" alignment="1" min="-2" pref="37" max="-2" attributes="0"/>
-                              <Component id="lblSexo" alignment="1" min="-2" pref="37" max="-2" attributes="0"/>
-                              <Component id="lblIdade" alignment="1" min="-2" pref="37" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="1" attributes="0">
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Group type="102" alignment="0" attributes="0">
+                                  <EmptySpace min="-2" pref="58" max="-2" attributes="0"/>
+                                  <Component id="lblSexo" min="-2" pref="37" max="-2" attributes="0"/>
+                              </Group>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="lblNome" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                          </Group>
+                          <Group type="102" attributes="0">
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="1" attributes="0">
+                                  <Component id="lblCargo" min="-2" pref="37" max="-2" attributes="0"/>
+                                  <Group type="103" alignment="1" groupAlignment="0" max="-2" attributes="0">
+                                      <Component id="lblSalario" alignment="1" max="32767" attributes="0"/>
+                                      <Component id="lblSenha" alignment="1" max="32767" attributes="0"/>
+                                  </Group>
+                              </Group>
                           </Group>
                       </Group>
-                      <Group type="102" alignment="0" attributes="0">
+                      <Group type="102" alignment="1" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="lblNome" min="-2" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="lblCpf" alignment="1" min="-2" pref="25" max="-2" attributes="0"/>
+                              <Component id="lblIdade" alignment="1" min="-2" max="-2" attributes="0"/>
+                          </Group>
                       </Group>
                   </Group>
-                  <EmptySpace max="-2" attributes="0"/>
+                  <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                      <Component id="edtIdade" max="32767" attributes="0"/>
+                      <Component id="edtSalario" max="32767" attributes="0"/>
                       <Component id="edtNome" alignment="0" pref="272" max="32767" attributes="0"/>
-                      <Component id="edtIdade" alignment="0" max="32767" attributes="0"/>
                       <Component id="edtSexo" alignment="0" max="32767" attributes="0"/>
                       <Component id="edtCpf" alignment="0" max="32767" attributes="0"/>
                       <Component id="edtSenha" alignment="0" max="32767" attributes="0"/>
+                      <Component id="edtCargo" max="32767" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="85" max="32767" attributes="0"/>
+                  <EmptySpace max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace min="-2" pref="43" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="edtNome" alignment="3" max="32767" attributes="0"/>
                       <Component id="lblNome" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="edtIdade" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="lblIdade" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="edtSexo" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="lblSexo" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="edtCpf" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="lblCpf" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="1" attributes="0">
-                      <Component id="edtSenha" min="-2" max="-2" attributes="0"/>
-                      <Component id="lblSenha" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Component id="lblCargo" min="-2" max="-2" attributes="0"/>
+                      <Component id="edtCargo" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="75" max="32767" attributes="0"/>
+                  <EmptySpace max="32767" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="edtSalario" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="lblSalario" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="edtSenha" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="lblSenha" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -188,14 +222,114 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="edtSenhaActionPerformed"/>
           </Events>
         </Component>
+        <Component class="javax.swing.JLabel" name="lblCargo">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Cargo"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JTextField" name="edtCargo">
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="edtCargoActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JTextField" name="edtSalario">
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="edtSalarioActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JLabel" name="lblSalario">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Salario"/>
+          </Properties>
+        </Component>
       </SubComponents>
     </Container>
-    <Component class="javax.swing.JButton" name="btnCadastrar">
+    <Container class="javax.swing.JScrollPane" name="jScrollPane1">
+      <AuxValues>
+        <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
+      </AuxValues>
+
+      <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+      <SubComponents>
+        <Component class="javax.swing.JTable" name="grdFuncionario">
+          <Properties>
+            <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
+              <Table columnCount="0" rowCount="4"/>
+            </Property>
+          </Properties>
+        </Component>
+      </SubComponents>
+    </Container>
+    <Component class="javax.swing.JButton" name="btnNovo">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Cadastar"/>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/imagens/novo_32x32.png"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="Novo"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnCadastrarActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnNovoActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="btnEditar">
+      <Properties>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/imagens/edit3_32x32.png"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="Editar"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnEditarActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="btnCancelar">
+      <Properties>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/imagens/cancel_32x32.png"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="Cancelar"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnCancelarActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="btnExcluir">
+      <Properties>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/imagens/del_32x32.png"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="Excluir"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnExcluirActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="btnSalvar">
+      <Properties>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/imagens/save_32x32.png"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="Salvar"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnSalvarActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="btnVoltar">
+      <Properties>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/imagens/exit.png"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="Voltar"/>
+        <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+          <Dimension value="[98, 39]"/>
+        </Property>
+        <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+          <Dimension value="[98, 39]"/>
+        </Property>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnVoltarActionPerformed"/>
       </Events>
     </Component>
   </SubComponents>

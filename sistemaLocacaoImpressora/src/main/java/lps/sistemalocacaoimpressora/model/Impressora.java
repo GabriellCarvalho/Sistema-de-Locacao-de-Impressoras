@@ -4,12 +4,19 @@
  */
 package lps.sistemalocacaoimpressora.model;
 
+import java.io.Serializable;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import lombok.Data;
 
 @Data
-public class Impressora {
+@Entity
+public class Impressora implements Serializable {
 
-    private int id;
+    @Id
+    private long id;
     private String nome;
     private String marca;
     private String modelo;
@@ -17,6 +24,7 @@ public class Impressora {
     private boolean colorida;
 
     public Impressora() {
+        this.id = -1;
         this.nome = "";
         this.marca = "";
         this.modelo = "";
@@ -31,5 +39,5 @@ public class Impressora {
         this.tipo = tipo;
         this.colorida = colorida;
     }
-    
+
 }

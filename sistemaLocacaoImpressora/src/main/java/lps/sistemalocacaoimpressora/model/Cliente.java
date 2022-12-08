@@ -4,17 +4,25 @@
  */
 package lps.sistemalocacaoimpressora.model;
 
+import java.io.Serializable;
+import javax.persistence.Entity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 @Data
 @EqualsAndHashCode(callSuper = false)
-public class Cliente extends Pessoa {
-
-    private int id;
+@Entity
+public class Cliente extends Pessoa implements Serializable {
+    
     private String email;
     private String senha;
-
+    
+    public Cliente(){
+        super();
+        this.email = "";
+        this.senha = "";
+    }
+    
     public Cliente(String nome, int idade, char sexo, String cpf, String email, String senha) {
         super(nome, idade, sexo, cpf);
         this.email = email;
