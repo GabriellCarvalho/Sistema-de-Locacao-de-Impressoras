@@ -26,7 +26,6 @@ public class FrMenu extends javax.swing.JFrame {
 
         btnCadastroImpressora = new javax.swing.JButton();
         btnCadFuncionario = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
         btnCadUsuario = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -45,8 +44,6 @@ public class FrMenu extends javax.swing.JFrame {
             }
         });
 
-        jLabel1.setText("Menu de teste");
-
         btnCadUsuario.setText("Cadastro usuario");
         btnCadUsuario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -58,31 +55,20 @@ public class FrMenu extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(113, 113, 113)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnCadFuncionario)
-                            .addComponent(btnCadastroImpressora)
-                            .addComponent(btnCadUsuario)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(128, 128, 128)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(145, Short.MAX_VALUE))
+            .addComponent(btnCadFuncionario, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
+            .addComponent(btnCadUsuario, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(btnCadastroImpressora, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(btnCadastroImpressora, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jLabel1)
-                .addGap(26, 26, 26)
-                .addComponent(btnCadastroImpressora)
+                .addComponent(btnCadFuncionario, javax.swing.GroupLayout.DEFAULT_SIZE, 80, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
-                .addComponent(btnCadFuncionario)
-                .addGap(18, 18, 18)
-                .addComponent(btnCadUsuario)
-                .addContainerGap(135, Short.MAX_VALUE))
+                .addComponent(btnCadUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(19, 19, 19))
         );
 
         pack();
@@ -114,6 +100,5 @@ public class FrMenu extends javax.swing.JFrame {
     private javax.swing.JButton btnCadFuncionario;
     private javax.swing.JButton btnCadUsuario;
     private javax.swing.JButton btnCadastroImpressora;
-    private javax.swing.JLabel jLabel1;
     // End of variables declaration//GEN-END:variables
 }

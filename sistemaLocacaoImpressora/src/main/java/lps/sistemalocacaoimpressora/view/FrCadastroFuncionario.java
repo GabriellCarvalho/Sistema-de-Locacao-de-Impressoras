@@ -4,8 +4,12 @@
  */
 package lps.sistemalocacaoimpressora.view;
 
+import java.text.ParseException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.text.MaskFormatter;
 import lps.sistemalocacaoimpressora.controller.FuncionarioController;
 import lps.sistemalocacaoimpressora.model.Funcionario;
 
@@ -25,6 +29,7 @@ public class FrCadastroFuncionario extends javax.swing.JFrame {
         funcionarioController = new FuncionarioController();
         initComponents();
 
+        this.adicionarMascaraNosCampos();
         this.habilitarCampos(false);
         this.limparCampos();
         funcionarioController.atualizarTabela(grdFuncionario);
@@ -40,7 +45,7 @@ public class FrCadastroFuncionario extends javax.swing.JFrame {
         edtNome.setText("");
         edtIdade.setText("");
         edtSexo.setText("");
-        edtCpf.setText("");
+        fEdtCpf.setText("");
         edtCargo.setText("");
         edtSalario.setText("");
         edtSenha.setText("");
@@ -59,10 +64,19 @@ public class FrCadastroFuncionario extends javax.swing.JFrame {
         edtNome.setText(f.getNome());
         edtIdade.setText(f.getIdade() + "");
         edtSexo.setText(f.getSexo() + "");
-        edtCpf.setText(f.getCPF());
+        fEdtCpf.setText(f.getCPF());
         edtCargo.setText(f.getCargo());
         edtSalario.setText(f.getSalario() + "");
         edtSenha.setText(f.getSenha());
+    }
+
+    public void adicionarMascaraNosCampos() {
+        try {
+            MaskFormatter maskCpf = new MaskFormatter("###.###.###-##");
+            maskCpf.install(fEdtCpf);
+        } catch (ParseException ex) {
+            Logger.getLogger(FrCadastroFuncionario.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -83,13 +97,13 @@ public class FrCadastroFuncionario extends javax.swing.JFrame {
         lblSexo = new javax.swing.JLabel();
         edtSexo = new javax.swing.JTextField();
         lblCpf = new javax.swing.JLabel();
-        edtCpf = new javax.swing.JTextField();
         lblSenha = new javax.swing.JLabel();
-        edtSenha = new javax.swing.JTextField();
         lblCargo = new javax.swing.JLabel();
         edtCargo = new javax.swing.JTextField();
         edtSalario = new javax.swing.JTextField();
         lblSalario = new javax.swing.JLabel();
+        fEdtCpf = new javax.swing.JFormattedTextField();
+        edtSenha = new javax.swing.JPasswordField();
         jScrollPane1 = new javax.swing.JScrollPane();
         grdFuncionario = new javax.swing.JTable();
         btnNovo = new javax.swing.JButton();
@@ -136,19 +150,7 @@ public class FrCadastroFuncionario extends javax.swing.JFrame {
 
         lblCpf.setText("CPF");
 
-        edtCpf.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                edtCpfActionPerformed(evt);
-            }
-        });
-
         lblSenha.setText("Senha");
-
-        edtSenha.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                edtSenhaActionPerformed(evt);
-            }
-        });
 
         lblCargo.setText("Cargo");
 
@@ -198,9 +200,9 @@ public class FrCadastroFuncionario extends javax.swing.JFrame {
                     .addComponent(edtSalario)
                     .addComponent(edtNome, javax.swing.GroupLayout.DEFAULT_SIZE, 272, Short.MAX_VALUE)
                     .addComponent(edtSexo)
-                    .addComponent(edtCpf)
-                    .addComponent(edtSenha)
-                    .addComponent(edtCargo))
+                    .addComponent(edtCargo)
+                    .addComponent(fEdtCpf)
+                    .addComponent(edtSenha))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         panFormularioLayout.setVerticalGroup(
@@ -220,8 +222,8 @@ public class FrCadastroFuncionario extends javax.swing.JFrame {
                     .addComponent(lblSexo))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(panFormularioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(edtCpf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblCpf))
+                    .addComponent(lblCpf)
+                    .addComponent(fEdtCpf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(panFormularioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblCargo)
@@ -232,8 +234,8 @@ public class FrCadastroFuncionario extends javax.swing.JFrame {
                     .addComponent(lblSalario))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(panFormularioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(edtSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblSenha))
+                    .addComponent(lblSenha)
+                    .addComponent(edtSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
 
@@ -327,13 +329,14 @@ public class FrCadastroFuncionario extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(lblTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(14, 14, 14)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnNovo)
-                    .addComponent(btnEditar)
-                    .addComponent(btnCancelar)
-                    .addComponent(btnExcluir)
-                    .addComponent(btnSalvar)
-                    .addComponent(btnVoltar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnVoltar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(btnNovo)
+                        .addComponent(btnEditar)
+                        .addComponent(btnCancelar)
+                        .addComponent(btnExcluir)
+                        .addComponent(btnSalvar)))
                 .addGap(18, 18, 18)
                 .addComponent(panFormulario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -359,9 +362,9 @@ public class FrCadastroFuncionario extends javax.swing.JFrame {
         // TODO add your handling code here:
         try {
             if (idFuncionarioEditando > 0) {
-                funcionarioController.atualizarFuncionario(idFuncionarioEditando, edtNome.getText(), edtIdade.getText(), edtSexo.getText(), edtCpf.getText(), edtCargo.getText(), Double.parseDouble(edtSalario.getText()), edtSenha.getText());
+                funcionarioController.atualizarFuncionario(idFuncionarioEditando, edtNome.getText(), edtIdade.getText(), edtSexo.getText(), fEdtCpf.getText(), edtCargo.getText(), edtSalario.getText(), edtSenha.getText());
             } else {
-                funcionarioController.cadastrarFuncionario(edtNome.getText(), edtIdade.getText(), edtSexo.getText(), edtCpf.getText(), edtCargo.getText(), edtSalario.getText(), edtSenha.getText());
+                funcionarioController.cadastrarFuncionario(edtNome.getText(), edtIdade.getText(), edtSexo.getText(), fEdtCpf.getText(), edtCargo.getText(), edtSalario.getText(), edtSenha.getText());
             }
             this.idFuncionarioEditando = -1;
             funcionarioController.atualizarTabela(grdFuncionario);
@@ -431,14 +434,6 @@ public class FrCadastroFuncionario extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_edtCargoActionPerformed
 
-    private void edtSenhaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_edtSenhaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_edtSenhaActionPerformed
-
-    private void edtCpfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_edtCpfActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_edtCpfActionPerformed
-
     private void edtSexoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_edtSexoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_edtSexoActionPerformed
@@ -460,12 +455,12 @@ public class FrCadastroFuncionario extends javax.swing.JFrame {
     private javax.swing.JButton btnSalvar;
     private javax.swing.JButton btnVoltar;
     private javax.swing.JTextField edtCargo;
-    private javax.swing.JTextField edtCpf;
     private javax.swing.JTextField edtIdade;
     private javax.swing.JTextField edtNome;
     private javax.swing.JTextField edtSalario;
-    private javax.swing.JTextField edtSenha;
+    private javax.swing.JPasswordField edtSenha;
     private javax.swing.JTextField edtSexo;
+    private javax.swing.JFormattedTextField fEdtCpf;
     private javax.swing.JTable grdFuncionario;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblCargo;

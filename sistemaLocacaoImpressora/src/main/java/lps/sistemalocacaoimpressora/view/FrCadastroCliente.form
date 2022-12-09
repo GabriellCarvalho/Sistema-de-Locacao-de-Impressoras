@@ -104,8 +104,8 @@
                       <Component id="edtNome" pref="272" max="32767" attributes="0"/>
                       <Component id="edtIdade" max="32767" attributes="0"/>
                       <Component id="edtSexo" max="32767" attributes="0"/>
-                      <Component id="edtCpf" max="32767" attributes="0"/>
                       <Component id="edtEmail" max="32767" attributes="0"/>
+                      <Component id="fEdtCpf" alignment="0" max="32767" attributes="0"/>
                       <Component id="edtSenha" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace max="32767" attributes="0"/>
@@ -132,8 +132,8 @@
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="edtCpf" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="lblCpf" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="fEdtCpf" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
@@ -142,8 +142,8 @@
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="edtSenha" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="lblSenha" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="edtSenha" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
               </Group>
@@ -186,11 +186,6 @@
             <Property name="text" type="java.lang.String" value="CPF"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="edtCpf">
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="edtCpfActionPerformed"/>
-          </Events>
-        </Component>
         <Component class="javax.swing.JLabel" name="lblEmail">
           <Properties>
             <Property name="text" type="java.lang.String" value="Email"/>
@@ -206,10 +201,9 @@
             <Property name="text" type="java.lang.String" value="Senha"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="edtSenha">
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="edtSenhaActionPerformed"/>
-          </Events>
+        <Component class="javax.swing.JFormattedTextField" name="fEdtCpf">
+        </Component>
+        <Component class="javax.swing.JPasswordField" name="edtSenha">
         </Component>
       </SubComponents>
     </Container>

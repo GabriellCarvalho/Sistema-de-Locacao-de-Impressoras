@@ -85,7 +85,5 @@ public class FuncionarioDAO implements IDao {
             return (Funcionario) lst.get(0);
         }
     }
-    public void update(Object obj) {
-        ///
-    }
+ 
 }

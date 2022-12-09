@@ -8,53 +8,51 @@ import java.util.List;
 import javax.swing.JTable;
 import lps.sistemalocacaoimpressora.model.Impressora;
 import lps.sistemalocacaoimpressora.model.dao.ImpressoraDAO;
+import lps.sistemalocacaoimpressora.model.exceptions.ImpressoraException;
+import lps.sistemalocacaoimpressora.model.valid.ValidateImpressora;
 
 public class ImpressoraController {
-    private ImpressoraDAO repositorio;
-   
+
+    private final ImpressoraDAO repositorio;
+
     public ImpressoraController() {
         repositorio = new ImpressoraDAO();
     }
-    
-    public void cadastrarImpressora(String nome, String marca, String modelo, String tipo, String colorida) throws Exception{
+
+    public void cadastrarImpressora(String nome, String marca, String modelo, String tipo, String colorida) {
+        ValidateImpressora valid = new ValidateImpressora();
         Impressora novaImpressora;
-        if(colorida == "sim")
-            novaImpressora = new Impressora(nome, marca, modelo, tipo, true);
-        else
-            novaImpressora = new Impressora(nome, marca, modelo, tipo, false);
+        novaImpressora = valid.validacao(nome, marca, modelo, tipo, colorida);
         if (repositorio.findByNome(nome) == null) {
             repositorio.save(novaImpressora);
         } else {
-            throw new Exception("Error - Já existe uma impressora com este 'nome'.");
+            throw new ImpressoraException("Error - Já existe uma impressora com este 'nome'.");
         }
     }
 
     public void atualizarImpressora(long idImpressora, String nome, String marca, String modelo, String tipo, String colorida) {
+        ValidateImpressora valid = new ValidateImpressora();
         Impressora novaImpressora;
-        if(colorida == "sim")
-            novaImpressora = new Impressora(nome, marca, modelo, tipo, true);
-        else
-            novaImpressora = new Impressora(nome, marca, modelo, tipo, false);
+        novaImpressora = valid.validacao(nome, marca, modelo, tipo, colorida);
         novaImpressora.setId(idImpressora);
-        
-        repositorio.update(novaImpressora);
+        repositorio.save(novaImpressora);
     }
 
     public void atualizarTabela(JTable grd) {
         List<Impressora> lst = repositorio.findAll();
-        
+
         TMCadImpressora tmImpressora = new TMCadImpressora(lst);
-        grd.setModel(tmImpressora);    
+        grd.setModel(tmImpressora);
     }
-    
-    public void excluirImpressora(Impressora impressora) throws Exception{
+
+    public void excluirImpressora(Impressora impressora) {
         if (impressora != null) {
             repositorio.delete(impressora);
         } else {
-            throw new Exception("Error - impressora inexistente.");
+            throw new ImpressoraException("Error - impressora inexistente.");
         }
-    } 
-  
+    }
+
     public Impressora buscarImpressora(String nome) {
         return (Impressora) this.repositorio.findByNome(nome);
     }

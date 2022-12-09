@@ -4,8 +4,12 @@
  */
 package lps.sistemalocacaoimpressora.view;
 
+import java.text.ParseException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.text.MaskFormatter;
 import lps.sistemalocacaoimpressora.controller.ClienteController;
 import lps.sistemalocacaoimpressora.model.Cliente;
 
@@ -24,7 +28,8 @@ public class FrCadastroCliente extends javax.swing.JFrame {
         this.telaAnterior = telaQueChamou;
         clienteController = new ClienteController();
         initComponents();
-
+        
+        this.adicionarMascaraNosCampos();
         this.habilitarCampos(false);
         this.limparCampos();
         clienteController.atualizarTabela(grdCliente);
@@ -40,7 +45,7 @@ public class FrCadastroCliente extends javax.swing.JFrame {
         edtNome.setText("");
         edtIdade.setText("");
         edtSexo.setText("");
-        edtCpf.setText("");
+        fEdtCpf.setText("");
         edtEmail.setText("");
         edtSenha.setText("");
     }
@@ -58,11 +63,19 @@ public class FrCadastroCliente extends javax.swing.JFrame {
         edtNome.setText(c.getNome());
         edtIdade.setText(c.getIdade() + "");
         edtSexo.setText(c.getSexo() + "");
-        edtCpf.setText(c.getCPF());
+        fEdtCpf.setText(c.getCPF());
         edtEmail.setText(c.getEmail());
         edtSenha.setText(c.getSenha());
     }
 
+    public void adicionarMascaraNosCampos() {
+        try {
+            MaskFormatter maskCpf = new MaskFormatter("###.###.###-##");
+            maskCpf.install(fEdtCpf);
+        } catch (ParseException ex) {
+            Logger.getLogger(FrCadastroFuncionario.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -81,11 +94,11 @@ public class FrCadastroCliente extends javax.swing.JFrame {
         lblSexo = new javax.swing.JLabel();
         edtSexo = new javax.swing.JTextField();
         lblCpf = new javax.swing.JLabel();
-        edtCpf = new javax.swing.JTextField();
         lblEmail = new javax.swing.JLabel();
         edtEmail = new javax.swing.JTextField();
         lblSenha = new javax.swing.JLabel();
-        edtSenha = new javax.swing.JTextField();
+        fEdtCpf = new javax.swing.JFormattedTextField();
+        edtSenha = new javax.swing.JPasswordField();
         jScrollPane1 = new javax.swing.JScrollPane();
         grdCliente = new javax.swing.JTable();
         btnVoltar = new javax.swing.JButton();
@@ -132,12 +145,6 @@ public class FrCadastroCliente extends javax.swing.JFrame {
 
         lblCpf.setText("CPF");
 
-        edtCpf.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                edtCpfActionPerformed(evt);
-            }
-        });
-
         lblEmail.setText("Email");
 
         edtEmail.addActionListener(new java.awt.event.ActionListener() {
@@ -147,12 +154,6 @@ public class FrCadastroCliente extends javax.swing.JFrame {
         });
 
         lblSenha.setText("Senha");
-
-        edtSenha.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                edtSenhaActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout panFormularioLayout = new javax.swing.GroupLayout(panFormulario);
         panFormulario.setLayout(panFormularioLayout);
@@ -176,8 +177,8 @@ public class FrCadastroCliente extends javax.swing.JFrame {
                     .addComponent(edtNome, javax.swing.GroupLayout.DEFAULT_SIZE, 272, Short.MAX_VALUE)
                     .addComponent(edtIdade)
                     .addComponent(edtSexo)
-                    .addComponent(edtCpf)
                     .addComponent(edtEmail)
+                    .addComponent(fEdtCpf)
                     .addComponent(edtSenha))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -198,16 +199,16 @@ public class FrCadastroCliente extends javax.swing.JFrame {
                     .addComponent(lblSexo))
                 .addGap(18, 18, 18)
                 .addGroup(panFormularioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(edtCpf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblCpf))
+                    .addComponent(lblCpf)
+                    .addComponent(fEdtCpf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(panFormularioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(edtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblEmail))
                 .addGap(18, 18, 18)
                 .addGroup(panFormularioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(edtSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblSenha))
+                    .addComponent(lblSenha)
+                    .addComponent(edtSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(20, 20, 20))
         );
 
@@ -325,9 +326,9 @@ public class FrCadastroCliente extends javax.swing.JFrame {
         // TODO add your handling code here:
         try {
             if (idClienteEditando > 0) {
-                clienteController.atualizarCliente(idClienteEditando, edtNome.getText(), edtIdade.getText(), edtSexo.getText(), edtCpf.getText(), edtEmail.getText(), edtSenha.getText());
+                clienteController.atualizarCliente(idClienteEditando, edtNome.getText(), edtIdade.getText(), edtSexo.getText(), fEdtCpf.getText(), edtEmail.getText(), edtSenha.getText());
             } else {
-                clienteController.cadastrarCliente(edtNome.getText(), edtIdade.getText(), edtSexo.getText(), edtCpf.getText(), edtEmail.getText(), edtSenha.getText());
+                clienteController.cadastrarCliente(edtNome.getText(), edtIdade.getText(), edtSexo.getText(), fEdtCpf.getText(), edtEmail.getText(), edtSenha.getText());
             }
             this.idClienteEditando = -1;
             clienteController.atualizarTabela(grdCliente);
@@ -357,17 +358,9 @@ public class FrCadastroCliente extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_edtSexoActionPerformed
 
-    private void edtCpfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_edtCpfActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_edtCpfActionPerformed
-
     private void edtEmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_edtEmailActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_edtEmailActionPerformed
-
-    private void edtSenhaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_edtSenhaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_edtSenhaActionPerformed
 
     private void btnNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoActionPerformed
         // TODO add your handling code here:
@@ -426,12 +419,12 @@ public class FrCadastroCliente extends javax.swing.JFrame {
     private javax.swing.JButton btnNovo;
     private javax.swing.JButton btnSalvar;
     private javax.swing.JButton btnVoltar;
-    private javax.swing.JTextField edtCpf;
     private javax.swing.JTextField edtEmail;
     private javax.swing.JTextField edtIdade;
     private javax.swing.JTextField edtNome;
-    private javax.swing.JTextField edtSenha;
+    private javax.swing.JPasswordField edtSenha;
     private javax.swing.JTextField edtSexo;
+    private javax.swing.JFormattedTextField fEdtCpf;
     private javax.swing.JTable grdCliente;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblCpf;

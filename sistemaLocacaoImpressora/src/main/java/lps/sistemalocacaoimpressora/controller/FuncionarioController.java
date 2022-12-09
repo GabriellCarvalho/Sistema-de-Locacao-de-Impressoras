@@ -8,47 +8,51 @@ import java.util.List;
 import javax.swing.JTable;
 import lps.sistemalocacaoimpressora.model.Funcionario;
 import lps.sistemalocacaoimpressora.model.dao.FuncionarioDAO;
+import lps.sistemalocacaoimpressora.model.exceptions.FuncionarioException;
+import lps.sistemalocacaoimpressora.model.valid.ValidateFuncionario;
 
 public class FuncionarioController {
 
-    private FuncionarioDAO repositorio;
+    private final FuncionarioDAO repositorio;
 
     public FuncionarioController() {
         repositorio = new FuncionarioDAO();
     }
 
-    public void cadastrarFuncionario(String nome, String idade, String sexo, String cpf, String cargo, String salario, String senha) throws Exception {
-        int i = Integer.parseInt(idade);
-        Funcionario novoFuncionario = new Funcionario(nome, i, sexo.charAt(0), cpf, cargo, Double.parseDouble(salario), senha);
+    public void cadastrarFuncionario(String nome, String idade, String sexo, String cpf, String cargo, String salario, String senha) {
+        ValidateFuncionario valid = new ValidateFuncionario();
+        Funcionario novoFuncionario = valid.validacao(nome, idade, sexo, cpf, cargo, salario, senha);
         if (repositorio.findByCpf(cpf) == null) {
             repositorio.save(novoFuncionario);
         } else {
-            throw new Exception("Error - Já existe um funcionario com este 'CPF'.");
+            throw new FuncionarioException("Error - Já existe um funcionario com este 'CPF'.");
         }
     }
-    
+
     public void atualizarTabela(JTable grd) {
         List<Funcionario> lst = repositorio.findAll();
-        
+
         TMCadFuncionario tmFuncionario = new TMCadFuncionario(lst);
-        grd.setModel(tmFuncionario);    
+        grd.setModel(tmFuncionario);
     }
-    
-    public void excluirFuncionario(Funcionario Funcionario) throws Exception {
+
+    public void excluirFuncionario(Funcionario Funcionario) {
         if (Funcionario != null) {
             repositorio.delete(Funcionario);
         } else {
-            throw new Exception("Error - Funcionario inexistente.");
+            throw new FuncionarioException("Error - Funcionario inexistente.");
         }
     }
-    
-    public void atualizarFuncionario(long idFuncionario, String nome, String idade, String sexo, String cpf, String cargo, double salario, String senha){
+
+    public void atualizarFuncionario(long idFuncionario, String nome, String idade, String sexo, String cpf, String cargo, String salario, String senha) {
+        ValidateFuncionario valid = new ValidateFuncionario();
         Funcionario novoFuncionario;
-        novoFuncionario = new Funcionario(nome,Integer.parseInt(idade), sexo.charAt(0), cpf, cargo, salario, senha);
-        repositorio.update(novoFuncionario);
+        novoFuncionario = valid.validacao(nome, idade, sexo, cpf, cargo, salario, senha);
+        novoFuncionario.setId(idFuncionario);
+        repositorio.save(novoFuncionario);
     }
-    
-    public Funcionario buscarFuncionario(String cpf){
+
+    public Funcionario buscarFuncionario(String cpf) {
         return (Funcionario) this.repositorio.findByCpf(cpf);
     }
 }

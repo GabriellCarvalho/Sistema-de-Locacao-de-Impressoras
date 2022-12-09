@@ -51,13 +51,15 @@
           <Group type="102" alignment="0" attributes="0">
               <Component id="lblTitulo" min="-2" pref="45" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="btnNovo" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="btnEditar" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="btnCancelar" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="btnExcluir" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="btnSalvar" alignment="3" min="-2" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="btnVoltar" alignment="0" max="32767" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="btnNovo" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="btnEditar" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="btnCancelar" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="btnExcluir" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="btnSalvar" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Component id="panFormulario" min="-2" max="-2" attributes="0"/>
@@ -120,9 +122,9 @@
                       <Component id="edtSalario" max="32767" attributes="0"/>
                       <Component id="edtNome" alignment="0" pref="272" max="32767" attributes="0"/>
                       <Component id="edtSexo" alignment="0" max="32767" attributes="0"/>
-                      <Component id="edtCpf" alignment="0" max="32767" attributes="0"/>
-                      <Component id="edtSenha" alignment="0" max="32767" attributes="0"/>
                       <Component id="edtCargo" max="32767" attributes="0"/>
+                      <Component id="fEdtCpf" max="32767" attributes="0"/>
+                      <Component id="edtSenha" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace max="32767" attributes="0"/>
               </Group>
@@ -148,8 +150,8 @@
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="edtCpf" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="lblCpf" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="fEdtCpf" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
@@ -163,8 +165,8 @@
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="edtSenha" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="lblSenha" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="edtSenha" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
@@ -207,20 +209,10 @@
             <Property name="text" type="java.lang.String" value="CPF"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="edtCpf">
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="edtCpfActionPerformed"/>
-          </Events>
-        </Component>
         <Component class="javax.swing.JLabel" name="lblSenha">
           <Properties>
             <Property name="text" type="java.lang.String" value="Senha"/>
           </Properties>
-        </Component>
-        <Component class="javax.swing.JTextField" name="edtSenha">
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="edtSenhaActionPerformed"/>
-          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="lblCargo">
           <Properties>
@@ -241,6 +233,10 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Salario"/>
           </Properties>
+        </Component>
+        <Component class="javax.swing.JFormattedTextField" name="fEdtCpf">
+        </Component>
+        <Component class="javax.swing.JPasswordField" name="edtSenha">
         </Component>
       </SubComponents>
     </Container>

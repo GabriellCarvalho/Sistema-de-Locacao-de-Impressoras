@@ -71,9 +71,6 @@ public class ImpressoraDAO implements IDao {
         return (List<Impressora>) lst;
     }
 
-    public void update(Object obj) {
-        ///
-    }
 
     public Object findByNome(String nome) {
         sql = " SELECT i "

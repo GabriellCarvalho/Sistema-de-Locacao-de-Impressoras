@@ -8,22 +8,24 @@ import java.util.List;
 import javax.swing.JTable;
 import lps.sistemalocacaoimpressora.model.Cliente;
 import lps.sistemalocacaoimpressora.model.dao.ClienteDAO;
+import lps.sistemalocacaoimpressora.model.exceptions.ClienteException;
+import lps.sistemalocacaoimpressora.model.valid.ValidateCliente;
 
 public class ClienteController {
 
-    private ClienteDAO repositorio;
+    private final ClienteDAO repositorio;
 
     public ClienteController() {
         repositorio = new ClienteDAO();
     }
 
-    public void cadastrarCliente(String nome, String idade, String sexo, String cpf, String email, String senha) throws Exception {
-        int i = Integer.parseInt(idade);
-        Cliente novoCliente = new Cliente(nome, i, sexo.charAt(0), cpf, email, senha);
+    public void cadastrarCliente(String nome, String idade, String sexo, String cpf, String email, String senha) {
+        ValidateCliente valid = new ValidateCliente();
+        Cliente novoCliente = valid.validacao(nome, idade, sexo, cpf, email, senha);
         if (repositorio.findByCpf(cpf) == null) {
             repositorio.save(novoCliente);
         } else {
-            throw new Exception("Error - Já existe um cliente com este 'CPF'.");
+            throw new ClienteException("Error - Já existe um cliente com este 'CPF'.");
         }
     }
 
@@ -34,22 +36,23 @@ public class ClienteController {
         grd.setModel(tmCliente);
     }
 
-    public void excluirCliente(Cliente cliente) throws Exception {
+    public void excluirCliente(Cliente cliente){
         if (cliente != null) {
             repositorio.delete(cliente);
         } else {
-            throw new Exception("Error - cliente inexistente.");
+            throw new ClienteException("Error - cliente inexistente.");
         }
     }
-    
-    public void atualizarCliente(long idCliente, String nome, String idade, String sexo, String cpf, String email, String senha){
-        Cliente novoCliente;
-        novoCliente = new Cliente(nome,Integer.parseInt(idade), sexo.charAt(0), cpf, email, senha);
-        repositorio.update(novoCliente);
+
+    public void atualizarCliente(long idCliente, String nome, String idade, String sexo, String cpf, String email, String senha) {
+        ValidateCliente valid = new ValidateCliente();
+        Cliente novoCliente = valid.validacao(nome, idade, sexo, cpf, email, senha);
+        novoCliente.setId(idCliente);
+        repositorio.save(novoCliente);
     }
-    
-    public Cliente buscarCliente(String cpf){
+
+    public Cliente buscarCliente(String cpf) {
         return (Cliente) this.repositorio.findByCpf(cpf);
     }
-    
+
 }

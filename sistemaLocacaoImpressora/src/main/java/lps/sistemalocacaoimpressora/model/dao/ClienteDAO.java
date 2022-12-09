@@ -85,9 +85,5 @@ public class ClienteDAO implements IDao {
             return (Cliente) lst.get(0);
         }
     }
-    
-    public void update(Object obj) {
-        ///
-    }
 
 }

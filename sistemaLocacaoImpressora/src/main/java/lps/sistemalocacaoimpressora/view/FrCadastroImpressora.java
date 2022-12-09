@@ -39,7 +39,7 @@ public class FrCadastroImpressora extends javax.swing.JFrame {
         edtMarca.setText("");
         edtModelo.setText("");
         edtTipo.setText("");
-        edtColorida.setText("");
+        edtColorida.setActionCommand("true");
     }
 
     public void preencherFormulario(Impressora i) {
@@ -47,11 +47,7 @@ public class FrCadastroImpressora extends javax.swing.JFrame {
         edtMarca.setText(i.getMarca());
         edtModelo.setText(i.getModelo());
         edtTipo.setText(i.getTipo());
-        if (i.isColorida()) {
-            edtColorida.setText("Colorida");
-        } else {
-            edtColorida.setText("Não é colorida");
-        }
+        edtColorida.setActionCommand(String.valueOf(i.isColorida()));
     }
 
     private Object getObjetoSelecionadoNaGrid() {
@@ -84,7 +80,7 @@ public class FrCadastroImpressora extends javax.swing.JFrame {
         lblTipo = new javax.swing.JLabel();
         edtTipo = new javax.swing.JTextField();
         lblColorido = new javax.swing.JLabel();
-        edtColorida = new javax.swing.JTextField();
+        edtColorida = new javax.swing.JComboBox<>();
         btnNovo = new javax.swing.JButton();
         btnExcluir = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
@@ -146,6 +142,7 @@ public class FrCadastroImpressora extends javax.swing.JFrame {
 
         lblColorido.setText("Colorida");
 
+        edtColorida.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "true", "false" }));
         edtColorida.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 edtColoridaActionPerformed(evt);
@@ -165,12 +162,13 @@ public class FrCadastroImpressora extends javax.swing.JFrame {
                     .addComponent(lblMarca, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(lblNome, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(panFormularioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(edtNome)
-                    .addComponent(edtMarca)
-                    .addComponent(edtModelo)
-                    .addComponent(edtTipo)
-                    .addComponent(edtColorida, javax.swing.GroupLayout.PREFERRED_SIZE, 272, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(panFormularioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panFormularioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(edtNome, javax.swing.GroupLayout.DEFAULT_SIZE, 272, Short.MAX_VALUE)
+                        .addComponent(edtMarca)
+                        .addComponent(edtModelo)
+                        .addComponent(edtTipo))
+                    .addComponent(edtColorida, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         panFormularioLayout.setVerticalGroup(
@@ -196,7 +194,7 @@ public class FrCadastroImpressora extends javax.swing.JFrame {
                 .addGroup(panFormularioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblColorido)
                     .addComponent(edtColorida, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
+                .addGap(15, 15, 15))
         );
 
         btnNovo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/novo_32x32.png"))); // NOI18N
@@ -297,7 +295,7 @@ public class FrCadastroImpressora extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(panFormulario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 195, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 186, Short.MAX_VALUE))
         );
 
         pack();
@@ -366,9 +364,9 @@ public class FrCadastroImpressora extends javax.swing.JFrame {
         // TODO add your handling code here:
         try {
             if (idImpressoraEditando > 0) {
-                impressoraController.atualizarImpressora(idImpressoraEditando, edtNome.getText(), edtMarca.getText(), edtModelo.getText(), edtTipo.getText(), edtColorida.getText());
+                impressoraController.atualizarImpressora(idImpressoraEditando, edtNome.getText(), edtMarca.getText(), edtModelo.getText(), edtTipo.getText(), edtColorida.getActionCommand());
             } else {
-                impressoraController.cadastrarImpressora(edtNome.getText(), edtMarca.getText(), edtModelo.getText(), edtTipo.getText(), edtColorida.getText());
+                impressoraController.cadastrarImpressora(edtNome.getText(), edtMarca.getText(), edtModelo.getText(), edtTipo.getText(), edtColorida.getActionCommand());
             }
             this.idImpressoraEditando = -1;
             impressoraController.atualizarTabela(grdImpressora);
@@ -403,15 +401,15 @@ public class FrCadastroImpressora extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_edtTipoActionPerformed
 
-    private void edtColoridaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_edtColoridaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_edtColoridaActionPerformed
-
     private void btnVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVoltarActionPerformed
         // TODO add your handling code here:
         this.telaAnterior.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_btnVoltarActionPerformed
+
+    private void edtColoridaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_edtColoridaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_edtColoridaActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -421,7 +419,7 @@ public class FrCadastroImpressora extends javax.swing.JFrame {
     private javax.swing.JButton btnNovo;
     private javax.swing.JButton btnSalvar;
     private javax.swing.JButton btnVoltar;
-    private javax.swing.JTextField edtColorida;
+    private javax.swing.JComboBox<String> edtColorida;
     private javax.swing.JTextField edtMarca;
     private javax.swing.JTextField edtModelo;
     private javax.swing.JTextField edtNome;
