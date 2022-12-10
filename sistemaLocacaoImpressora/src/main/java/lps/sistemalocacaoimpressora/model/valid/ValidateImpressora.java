@@ -35,7 +35,7 @@ public class ValidateImpressora {
         if (colorida.isEmpty()) {
             throw new ImpressoraException("Error - Campo vazio: 'colorida'.");
         }
-        if (colorida.equals("true")) {
+        if (colorida.equals("Sim")) {
             i.setColorida(true);
         } else {
             i.setColorida(false);

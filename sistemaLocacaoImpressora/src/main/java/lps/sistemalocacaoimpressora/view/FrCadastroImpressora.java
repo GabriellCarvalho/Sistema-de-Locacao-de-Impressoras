@@ -39,7 +39,7 @@ public class FrCadastroImpressora extends javax.swing.JFrame {
         edtMarca.setText("");
         edtModelo.setText("");
         edtTipo.setText("");
-        edtColorida.setActionCommand("true");
+        edtColorida.setSelectedItem("Sim");
     }
 
     public void preencherFormulario(Impressora i) {
@@ -47,7 +47,11 @@ public class FrCadastroImpressora extends javax.swing.JFrame {
         edtMarca.setText(i.getMarca());
         edtModelo.setText(i.getModelo());
         edtTipo.setText(i.getTipo());
-        edtColorida.setActionCommand(String.valueOf(i.isColorida()));
+        if (i.isColorida()) {
+            edtColorida.setSelectedItem("Sim");
+        } else {
+            edtColorida.setSelectedItem("Nao");
+        }
     }
 
     private Object getObjetoSelecionadoNaGrid() {
@@ -142,7 +146,7 @@ public class FrCadastroImpressora extends javax.swing.JFrame {
 
         lblColorido.setText("Colorida");
 
-        edtColorida.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "true", "false" }));
+        edtColorida.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Sim", "Nao" }));
         edtColorida.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 edtColoridaActionPerformed(evt);
@@ -364,9 +368,9 @@ public class FrCadastroImpressora extends javax.swing.JFrame {
         // TODO add your handling code here:
         try {
             if (idImpressoraEditando > 0) {
-                impressoraController.atualizarImpressora(idImpressoraEditando, edtNome.getText(), edtMarca.getText(), edtModelo.getText(), edtTipo.getText(), edtColorida.getActionCommand());
+                impressoraController.atualizarImpressora(idImpressoraEditando, edtNome.getText(), edtMarca.getText(), edtModelo.getText(), edtTipo.getText(), edtColorida.getSelectedItem().toString());
             } else {
-                impressoraController.cadastrarImpressora(edtNome.getText(), edtMarca.getText(), edtModelo.getText(), edtTipo.getText(), edtColorida.getActionCommand());
+                impressoraController.cadastrarImpressora(edtNome.getText(), edtMarca.getText(), edtModelo.getText(), edtTipo.getText(), edtColorida.getSelectedItem().toString());
             }
             this.idImpressoraEditando = -1;
             impressoraController.atualizarTabela(grdImpressora);
