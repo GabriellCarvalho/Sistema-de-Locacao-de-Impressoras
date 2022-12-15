@@ -4,15 +4,19 @@
  */
 package lps.sistemalocacaoimpressora.view;
 
+import javax.swing.JFrame;
 
 public class FrMenu extends javax.swing.JFrame {
+
+    JFrame telaAnterior;
 
     /**
      * Creates new form FrMenu
      */
-    public FrMenu() {
+    public FrMenu(JFrame telaQueChamou) {
+        this.telaAnterior = telaQueChamou;
         initComponents();
-     
+
     }
 
     /**
@@ -30,21 +34,21 @@ public class FrMenu extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        btnCadastroImpressora.setText("Cadastro impressora");
+        btnCadastroImpressora.setText("Cadastro de impressora");
         btnCadastroImpressora.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCadastroImpressoraActionPerformed(evt);
             }
         });
 
-        btnCadFuncionario.setText("Cadastro Funcionario");
+        btnCadFuncionario.setText("Cadastro de Funcionario");
         btnCadFuncionario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCadFuncionarioActionPerformed(evt);
             }
         });
 
-        btnCadUsuario.setText("Cadastro usuario");
+        btnCadUsuario.setText("Cadastro de Cliente");
         btnCadUsuario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCadUsuarioActionPerformed(evt);

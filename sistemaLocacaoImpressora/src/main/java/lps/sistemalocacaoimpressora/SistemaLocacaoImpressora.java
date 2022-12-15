@@ -4,12 +4,12 @@
  */
 package lps.sistemalocacaoimpressora;
 
-import lps.sistemalocacaoimpressora.view.FrMenu;
+import lps.sistemalocacaoimpressora.view.FrLogin;
 
 public class SistemaLocacaoImpressora {
 
     public static void main(String[] args) {
-        FrMenu tela = new FrMenu();
+        FrLogin tela = new FrLogin();
         tela.setVisible(true);
     }
 }

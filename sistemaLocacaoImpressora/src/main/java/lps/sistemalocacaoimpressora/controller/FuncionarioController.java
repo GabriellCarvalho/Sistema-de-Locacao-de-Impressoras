@@ -10,6 +10,7 @@ import lps.sistemalocacaoimpressora.model.Funcionario;
 import lps.sistemalocacaoimpressora.model.dao.FuncionarioDAO;
 import lps.sistemalocacaoimpressora.model.exceptions.FuncionarioException;
 import lps.sistemalocacaoimpressora.model.valid.ValidateFuncionario;
+import lps.sistemalocacaoimpressora.model.valid.ValidateLogin;
 
 public class FuncionarioController {
 
@@ -54,5 +55,11 @@ public class FuncionarioController {
 
     public Funcionario buscarFuncionario(String cpf) {
         return (Funcionario) this.repositorio.findByCpf(cpf);
+    }
+
+    public void checkLogin(String cpf, String senha) {
+            ValidateLogin valid = new ValidateLogin();
+            valid.validEntrada(cpf, senha);
+            valid.validLogin(this.buscarFuncionario(cpf), senha);
     }
 }

@@ -45,7 +45,7 @@
   <SubComponents>
     <Component class="javax.swing.JButton" name="btnCadastroImpressora">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Cadastro impressora"/>
+        <Property name="text" type="java.lang.String" value="Cadastro de impressora"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnCadastroImpressoraActionPerformed"/>
@@ -53,7 +53,7 @@
     </Component>
     <Component class="javax.swing.JButton" name="btnCadFuncionario">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Cadastro Funcionario"/>
+        <Property name="text" type="java.lang.String" value="Cadastro de Funcionario"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnCadFuncionarioActionPerformed"/>
@@ -61,7 +61,7 @@
     </Component>
     <Component class="javax.swing.JButton" name="btnCadUsuario">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Cadastro usuario"/>
+        <Property name="text" type="java.lang.String" value="Cadastro de Cliente"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnCadUsuarioActionPerformed"/>

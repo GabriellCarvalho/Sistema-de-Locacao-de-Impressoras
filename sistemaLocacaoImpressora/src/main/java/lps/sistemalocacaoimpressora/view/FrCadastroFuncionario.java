@@ -250,10 +250,12 @@ public class FrCadastroFuncionario extends javax.swing.JFrame {
 
             }
         ));
+        grdFuncionario.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jScrollPane1.setViewportView(grdFuncionario);
 
         btnNovo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/novo_32x32.png"))); // NOI18N
         btnNovo.setText("Novo");
+        btnNovo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnNovo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnNovoActionPerformed(evt);
@@ -262,6 +264,7 @@ public class FrCadastroFuncionario extends javax.swing.JFrame {
 
         btnEditar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/edit3_32x32.png"))); // NOI18N
         btnEditar.setText("Editar");
+        btnEditar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnEditar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnEditarActionPerformed(evt);
@@ -270,6 +273,7 @@ public class FrCadastroFuncionario extends javax.swing.JFrame {
 
         btnCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/cancel_32x32.png"))); // NOI18N
         btnCancelar.setText("Cancelar");
+        btnCancelar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCancelarActionPerformed(evt);
@@ -278,6 +282,7 @@ public class FrCadastroFuncionario extends javax.swing.JFrame {
 
         btnExcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/del_32x32.png"))); // NOI18N
         btnExcluir.setText("Excluir");
+        btnExcluir.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnExcluir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnExcluirActionPerformed(evt);
@@ -286,6 +291,7 @@ public class FrCadastroFuncionario extends javax.swing.JFrame {
 
         btnSalvar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/save_32x32.png"))); // NOI18N
         btnSalvar.setText("Salvar");
+        btnSalvar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnSalvar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSalvarActionPerformed(evt);
@@ -294,6 +300,7 @@ public class FrCadastroFuncionario extends javax.swing.JFrame {
 
         btnVoltar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/exit.png"))); // NOI18N
         btnVoltar.setText("Voltar");
+        btnVoltar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnVoltar.setMaximumSize(new java.awt.Dimension(98, 39));
         btnVoltar.setMinimumSize(new java.awt.Dimension(98, 39));
         btnVoltar.addActionListener(new java.awt.event.ActionListener() {
