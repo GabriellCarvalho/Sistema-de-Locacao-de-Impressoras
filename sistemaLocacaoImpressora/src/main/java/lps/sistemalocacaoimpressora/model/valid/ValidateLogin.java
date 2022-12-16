@@ -4,13 +4,10 @@
  */
 package lps.sistemalocacaoimpressora.model.valid;
 
-import lps.sistemalocacaoimpressora.controller.FuncionarioController;
 import lps.sistemalocacaoimpressora.model.Funcionario;
 import lps.sistemalocacaoimpressora.model.exceptions.FuncionarioException;
 
 public class ValidateLogin {
-
-    private FuncionarioController funcionarioController;
     
     public void validEntrada(String cpf, String senha){
         if (cpf.isEmpty()) {
@@ -27,7 +24,7 @@ public class ValidateLogin {
             throw new FuncionarioException("Erro - Funcionario nao cadastrado.");
         }
         
-        if (funcionario.getSenha() == null ? senha != null : !funcionario.getSenha().equals(senha)) {
+        if (!funcionario.getSenha().equals(senha)) {
             throw new FuncionarioException("Erro - Senha incorreta.");
         }
     }

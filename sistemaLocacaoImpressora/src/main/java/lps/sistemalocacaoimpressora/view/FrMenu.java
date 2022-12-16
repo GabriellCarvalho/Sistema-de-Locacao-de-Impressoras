@@ -35,6 +35,7 @@ public class FrMenu extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         btnCadastroImpressora.setText("Cadastro de impressora");
+        btnCadastroImpressora.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnCadastroImpressora.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCadastroImpressoraActionPerformed(evt);
@@ -42,6 +43,7 @@ public class FrMenu extends javax.swing.JFrame {
         });
 
         btnCadFuncionario.setText("Cadastro de Funcionario");
+        btnCadFuncionario.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnCadFuncionario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCadFuncionarioActionPerformed(evt);
@@ -49,6 +51,7 @@ public class FrMenu extends javax.swing.JFrame {
         });
 
         btnCadUsuario.setText("Cadastro de Cliente");
+        btnCadUsuario.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnCadUsuario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCadUsuarioActionPerformed(evt);
