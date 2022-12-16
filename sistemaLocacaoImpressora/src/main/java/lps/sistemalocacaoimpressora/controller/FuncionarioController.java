@@ -62,4 +62,9 @@ public class FuncionarioController {
             valid.validEntrada(cpf, senha);
             valid.validLogin(this.buscarFuncionario(cpf), senha);
     }
+    
+    public void checkAcesso(String cpf, String permicao) {
+        ValidateLogin valid = new ValidateLogin();
+        valid.validAcesso(this.buscarFuncionario(cpf), permicao);
+    }
 }

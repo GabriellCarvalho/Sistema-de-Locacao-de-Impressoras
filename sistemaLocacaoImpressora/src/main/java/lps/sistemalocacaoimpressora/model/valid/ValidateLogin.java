@@ -28,4 +28,10 @@ public class ValidateLogin {
             throw new FuncionarioException("Erro - Senha incorreta.");
         }
     }
+    
+    public void validAcesso(Funcionario funcionario, String permicao){
+        if (!funcionario.getCargo().equals(permicao)) {
+            throw new FuncionarioException("Erro - Acesso negado.");
+        }
+    }
 }
