@@ -154,17 +154,38 @@ public class FrMenu extends javax.swing.JFrame {
 
     private void btnCadUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadUsuarioActionPerformed
         // TODO add your handling code here:
+        String[] options = new String[]{"Fisica", "Juridica"};
         if (this.funcionarioController.buscarFuncionario(cpf).getCargo().equals("Administrador")) {
-            FrCadastroCliente telaCadCliente = new FrCadastroCliente(this);
-            telaCadCliente.setVisible(true);
-            this.setVisible(false);
+
+            int response = JOptionPane.showOptionDialog(null, "Message", "Title",
+                    JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE,
+                    null, options, options[0]);
+            if (response == 0) {
+                FrCadastroCliente telaCadCliente = new FrCadastroCliente(this);
+                telaCadCliente.setVisible(true);
+                this.setVisible(false);
+            } else if (response == 1) {
+                FrCadPJuridica telaCadCliente = new FrCadPJuridica(this);
+                telaCadCliente.setVisible(true);
+                this.setVisible(false);
+            }
+
         } else {
             this.permicao = "Gerente";
             try {
                 this.funcionarioController.checkAcesso(this.cpf, permicao);
-                FrCadastroCliente telaCadCliente = new FrCadastroCliente(this);
-                telaCadCliente.setVisible(true);
-                this.setVisible(false);
+                int response = JOptionPane.showOptionDialog(null, "Message", "Title",
+                        JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE,
+                        null, options, options[0]);
+                if (response == 0) {
+                    FrCadastroCliente telaCadCliente = new FrCadastroCliente(this);
+                    telaCadCliente.setVisible(true);
+                    this.setVisible(false);
+                } else if (response == 1) {
+                    FrCadPJuridica telaCadCliente = new FrCadPJuridica(this);
+                    telaCadCliente.setVisible(true);
+                    this.setVisible(false);
+                }
             } catch (Exception ex) {
                 JOptionPane.showMessageDialog(this, ex.getMessage());
             }

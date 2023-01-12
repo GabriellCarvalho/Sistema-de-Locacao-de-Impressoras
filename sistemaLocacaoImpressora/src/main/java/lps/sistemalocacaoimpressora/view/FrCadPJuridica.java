@@ -10,31 +10,29 @@ import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.text.MaskFormatter;
-import lps.sistemalocacaoimpressora.controller.ClienteController;
-import lps.sistemalocacaoimpressora.model.Cliente;
+import lps.sistemalocacaoimpressora.controller.PJuridicaController;
+import lps.sistemalocacaoimpressora.model.PessoaJuridica;
 
-public class FrCadastroCliente extends javax.swing.JFrame {
+public class FrCadPJuridica extends javax.swing.JFrame {
+    
 
     JFrame telaAnterior;
-    ClienteController clienteController;
+    PJuridicaController pJuridicaController;
     long idClienteEditando;
-
     /**
-     * Creates new form FrCliente
-     *
-     * @param telaQueChamou
+     * Creates new form FrCadPJuridica
      */
-    public FrCadastroCliente(JFrame telaQueChamou) {
+    public FrCadPJuridica(JFrame telaQueChamou) {
         this.telaAnterior = telaQueChamou;
-        clienteController = new ClienteController();
+        pJuridicaController = new PJuridicaController();
         initComponents();
-
+        
         this.adicionarMascaraNosCampos();
         this.habilitarCampos(false);
         this.limparCampos();
-        clienteController.atualizarTabela(grdCliente);
+        pJuridicaController.atualizarTabela(grdCliente);
     }
-
+    
     public void habilitarCampos(boolean flag) {
         for (int i = 0; i < panFormulario.getComponents().length; i++) {
             panFormulario.getComponent(i).setEnabled(flag);
@@ -43,9 +41,7 @@ public class FrCadastroCliente extends javax.swing.JFrame {
 
     public void limparCampos() {
         edtNome.setText("");
-        edtIdade.setText("");
-        edtSexo.setText("");
-        fEdtCpf.setText("");
+        fEdtCnpj.setText("");
         edtEmail.setText("");
         edtSenha.setText("");
     }
@@ -59,19 +55,17 @@ public class FrCadastroCliente extends javax.swing.JFrame {
         return obj;
     }
 
-    public void preencherFormulario(Cliente c) {
-        edtNome.setText(c.getNome());
-        edtIdade.setText(c.getIdade() + "");
-        edtSexo.setText(c.getSexo() + "");
-        fEdtCpf.setText(c.getCPF());
-        edtEmail.setText(c.getEmail());
-        edtSenha.setText(c.getSenha());
+    public void preencherFormulario(PessoaJuridica pj) {
+        edtNome.setText(pj.getNome());
+        fEdtCnpj.setText(pj.getCNPJ());
+        edtEmail.setText(pj.getEmail());
+        edtSenha.setText(pj.getSenha());
     }
 
     public void adicionarMascaraNosCampos() {
         try {
-            MaskFormatter maskCpf = new MaskFormatter("###.###.###-##");
-            maskCpf.install(fEdtCpf);
+            MaskFormatter maskCpf = new MaskFormatter("##.###.###/####-##");
+            maskCpf.install(fEdtCnpj);
         } catch (ParseException ex) {
             Logger.getLogger(FrCadastroFuncionario.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -86,146 +80,26 @@ public class FrCadastroCliente extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        lblTitulo = new javax.swing.JLabel();
-        panFormulario = new javax.swing.JPanel();
-        lblNome = new javax.swing.JLabel();
-        edtNome = new javax.swing.JTextField();
-        lblIdade = new javax.swing.JLabel();
-        edtIdade = new javax.swing.JTextField();
-        lblSexo = new javax.swing.JLabel();
-        edtSexo = new javax.swing.JTextField();
-        lblCpf = new javax.swing.JLabel();
-        lblEmail = new javax.swing.JLabel();
-        edtEmail = new javax.swing.JTextField();
-        lblSenha = new javax.swing.JLabel();
-        fEdtCpf = new javax.swing.JFormattedTextField();
-        edtSenha = new javax.swing.JPasswordField();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        grdCliente = new javax.swing.JTable();
         btnVoltar = new javax.swing.JButton();
         btnSalvar = new javax.swing.JButton();
         btnNovo = new javax.swing.JButton();
         btnEditar = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
         btnExcluir = new javax.swing.JButton();
+        lblTitulo = new javax.swing.JLabel();
+        panFormulario = new javax.swing.JPanel();
+        lblNome = new javax.swing.JLabel();
+        edtNome = new javax.swing.JTextField();
+        lblCnpj = new javax.swing.JLabel();
+        lblEmail = new javax.swing.JLabel();
+        edtEmail = new javax.swing.JTextField();
+        lblSenha = new javax.swing.JLabel();
+        fEdtCnpj = new javax.swing.JFormattedTextField();
+        edtSenha = new javax.swing.JPasswordField();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        grdCliente = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        addWindowListener(new java.awt.event.WindowAdapter() {
-            public void windowClosed(java.awt.event.WindowEvent evt) {
-                formWindowClosed(evt);
-            }
-        });
-
-        lblTitulo.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
-        lblTitulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblTitulo.setText("Cadastro de Cliente");
-
-        lblNome.setText("Nome Completo");
-
-        edtNome.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                edtNomeActionPerformed(evt);
-            }
-        });
-
-        lblIdade.setText("Idade");
-
-        edtIdade.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                edtIdadeActionPerformed(evt);
-            }
-        });
-
-        lblSexo.setText("Sexo");
-
-        edtSexo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                edtSexoActionPerformed(evt);
-            }
-        });
-
-        lblCpf.setText("CPF");
-
-        lblEmail.setText("Email");
-
-        edtEmail.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                edtEmailActionPerformed(evt);
-            }
-        });
-
-        lblSenha.setText("Senha");
-
-        javax.swing.GroupLayout panFormularioLayout = new javax.swing.GroupLayout(panFormulario);
-        panFormulario.setLayout(panFormularioLayout);
-        panFormularioLayout.setHorizontalGroup(
-            panFormularioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panFormularioLayout.createSequentialGroup()
-                .addGroup(panFormularioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panFormularioLayout.createSequentialGroup()
-                        .addGap(58, 58, 58)
-                        .addGroup(panFormularioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(lblSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblCpf, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblSexo, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblIdade, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(panFormularioLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(lblNome)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(panFormularioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(edtNome, javax.swing.GroupLayout.DEFAULT_SIZE, 272, Short.MAX_VALUE)
-                    .addComponent(edtIdade)
-                    .addComponent(edtSexo)
-                    .addComponent(edtEmail)
-                    .addComponent(fEdtCpf)
-                    .addComponent(edtSenha))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        panFormularioLayout.setVerticalGroup(
-            panFormularioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panFormularioLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(panFormularioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(edtNome)
-                    .addComponent(lblNome))
-                .addGap(18, 18, 18)
-                .addGroup(panFormularioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(edtIdade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblIdade))
-                .addGap(18, 18, 18)
-                .addGroup(panFormularioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(edtSexo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblSexo))
-                .addGap(18, 18, 18)
-                .addGroup(panFormularioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblCpf)
-                    .addComponent(fEdtCpf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(panFormularioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(edtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblEmail))
-                .addGap(18, 18, 18)
-                .addGroup(panFormularioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblSenha)
-                    .addComponent(edtSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(20, 20, 20))
-        );
-
-        grdCliente.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {},
-                {},
-                {},
-                {}
-            },
-            new String [] {
-
-            }
-        ));
-        grdCliente.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jScrollPane1.setViewportView(grdCliente);
 
         btnVoltar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/exit.png"))); // NOI18N
         btnVoltar.setText("Voltar");
@@ -281,27 +155,110 @@ public class FrCadastroCliente extends javax.swing.JFrame {
             }
         });
 
+        lblTitulo.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
+        lblTitulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblTitulo.setText("Cadastro de Pessoa Jurídica");
+
+        lblNome.setText("Nome");
+
+        edtNome.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                edtNomeActionPerformed(evt);
+            }
+        });
+
+        lblCnpj.setText("CNPJ");
+
+        lblEmail.setText("Email");
+
+        edtEmail.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                edtEmailActionPerformed(evt);
+            }
+        });
+
+        lblSenha.setText("Senha");
+
+        javax.swing.GroupLayout panFormularioLayout = new javax.swing.GroupLayout(panFormulario);
+        panFormulario.setLayout(panFormularioLayout);
+        panFormularioLayout.setHorizontalGroup(
+            panFormularioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panFormularioLayout.createSequentialGroup()
+                .addGap(58, 58, 58)
+                .addGroup(panFormularioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblNome)
+                    .addGroup(panFormularioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(lblSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(lblEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(lblCnpj, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(18, 18, 18)
+                .addGroup(panFormularioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(edtNome, javax.swing.GroupLayout.DEFAULT_SIZE, 272, Short.MAX_VALUE)
+                    .addComponent(edtEmail)
+                    .addComponent(fEdtCnpj)
+                    .addComponent(edtSenha))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        panFormularioLayout.setVerticalGroup(
+            panFormularioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panFormularioLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(panFormularioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(edtNome)
+                    .addComponent(lblNome))
+                .addGap(18, 18, 18)
+                .addGroup(panFormularioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblCnpj)
+                    .addComponent(fEdtCnpj, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(panFormularioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(edtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblEmail))
+                .addGap(18, 18, 18)
+                .addGroup(panFormularioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblSenha)
+                    .addComponent(edtSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(20, 20, 20))
+        );
+
+        grdCliente.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {},
+                {},
+                {},
+                {}
+            },
+            new String [] {
+
+            }
+        ));
+        grdCliente.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jScrollPane1.setViewportView(grdCliente);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(lblTitulo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(panFormulario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(btnNovo)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnEditar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnExcluir)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnCancelar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnSalvar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnVoltar)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(btnNovo)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnEditar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnExcluir)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnCancelar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnSalvar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnVoltar)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(panFormulario, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -334,12 +291,12 @@ public class FrCadastroCliente extends javax.swing.JFrame {
         // TODO add your handling code here:
         try {
             if (idClienteEditando > 0) {
-                clienteController.atualizarCliente(idClienteEditando, edtNome.getText(), edtIdade.getText(), edtSexo.getText(), fEdtCpf.getText(), edtEmail.getText(), edtSenha.getText());
+                pJuridicaController.atualizarCliente(idClienteEditando, edtNome.getText(),edtEmail.getText(), fEdtCnpj.getText(), edtSenha.getText());
             } else {
-                clienteController.cadastrarCliente(edtNome.getText(), edtIdade.getText(), edtSexo.getText(), fEdtCpf.getText(), edtEmail.getText(), edtSenha.getText());
+                pJuridicaController.cadastrarPJuridica(edtNome.getText(), edtEmail.getText(), fEdtCnpj.getText(), edtSenha.getText());
             }
             this.idClienteEditando = -1;
-            clienteController.atualizarTabela(grdCliente);
+            pJuridicaController.atualizarTabela(grdCliente);
             this.habilitarCampos(false);
             this.limparCampos();
         } catch (Exception ex) {
@@ -347,28 +304,6 @@ public class FrCadastroCliente extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, ex.getMessage());
         }
     }//GEN-LAST:event_btnSalvarActionPerformed
-
-    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
-        // TODO add your handling code here:
-        this.telaAnterior.setVisible(true);
-        this.setVisible(false);
-    }//GEN-LAST:event_formWindowClosed
-
-    private void edtNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_edtNomeActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_edtNomeActionPerformed
-
-    private void edtIdadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_edtIdadeActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_edtIdadeActionPerformed
-
-    private void edtSexoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_edtSexoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_edtSexoActionPerformed
-
-    private void edtEmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_edtEmailActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_edtEmailActionPerformed
 
     private void btnNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoActionPerformed
         // TODO add your handling code here:
@@ -378,9 +313,9 @@ public class FrCadastroCliente extends javax.swing.JFrame {
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
         // TODO add your handling code here:
-        Cliente clienteEditando = (Cliente) this.getObjetoSelecionadoNaGrid();
+        PessoaJuridica clienteEditando = (PessoaJuridica) this.getObjetoSelecionadoNaGrid();
         if (clienteEditando == null)
-            JOptionPane.showMessageDialog(this, "Primeiro selecione um registro na tabela.");
+        JOptionPane.showMessageDialog(this, "Primeiro selecione um registro na tabela.");
         else {
             this.limparCampos();
             this.habilitarCampos(true);
@@ -397,21 +332,21 @@ public class FrCadastroCliente extends javax.swing.JFrame {
 
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
         // TODO add your handling code here:
-        Cliente clienteExcluido = (Cliente) this.getObjetoSelecionadoNaGrid();
+        PessoaJuridica clienteExcluido = (PessoaJuridica) this.getObjetoSelecionadoNaGrid();
         if (clienteExcluido == null) {
             JOptionPane.showMessageDialog(this, "Primeiro selecione um registro na tabela.");
         } else {
             int response = JOptionPane.showConfirmDialog(null,
-                    "Deseja exlcuir o Cliente \n("
-                    + clienteExcluido.getNome() + ", "
-                    + clienteExcluido.getCPF() + ") ?",
-                    "Confirmar exclusão",
-                    JOptionPane.OK_CANCEL_OPTION,
-                    JOptionPane.QUESTION_MESSAGE);
+                "Deseja exlcuir o Cliente \n("
+                + clienteExcluido.getNome() + ", "
+                + clienteExcluido.getCNPJ() + ") ?",
+                "Confirmar exclusão",
+                JOptionPane.OK_CANCEL_OPTION,
+                JOptionPane.QUESTION_MESSAGE);
             if (response == JOptionPane.OK_OPTION) {
                 try {
-                    clienteController.excluirCliente(clienteExcluido);
-                    clienteController.atualizarTabela(grdCliente);
+                    pJuridicaController.excluirCliente(clienteExcluido);
+                    pJuridicaController.atualizarTabela(grdCliente);
                     JOptionPane.showMessageDialog(this, "Exclusão feita com sucesso!");
                 } catch (Exception ex) {
                     JOptionPane.showMessageDialog(this, ex.getMessage());
@@ -419,6 +354,15 @@ public class FrCadastroCliente extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_btnExcluirActionPerformed
+
+    private void edtNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_edtNomeActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_edtNomeActionPerformed
+
+    private void edtEmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_edtEmailActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_edtEmailActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancelar;
@@ -428,19 +372,15 @@ public class FrCadastroCliente extends javax.swing.JFrame {
     private javax.swing.JButton btnSalvar;
     private javax.swing.JButton btnVoltar;
     private javax.swing.JTextField edtEmail;
-    private javax.swing.JTextField edtIdade;
     private javax.swing.JTextField edtNome;
     private javax.swing.JPasswordField edtSenha;
-    private javax.swing.JTextField edtSexo;
-    private javax.swing.JFormattedTextField fEdtCpf;
+    private javax.swing.JFormattedTextField fEdtCnpj;
     private javax.swing.JTable grdCliente;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JLabel lblCpf;
+    private javax.swing.JLabel lblCnpj;
     private javax.swing.JLabel lblEmail;
-    private javax.swing.JLabel lblIdade;
     private javax.swing.JLabel lblNome;
     private javax.swing.JLabel lblSenha;
-    private javax.swing.JLabel lblSexo;
     private javax.swing.JLabel lblTitulo;
     private javax.swing.JPanel panFormulario;
     // End of variables declaration//GEN-END:variables
