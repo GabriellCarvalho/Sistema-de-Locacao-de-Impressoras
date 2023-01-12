@@ -37,9 +37,9 @@ public class FuncionarioController {
         grd.setModel(tmFuncionario);
     }
 
-    public void excluirFuncionario(Funcionario Funcionario) {
-        if (Funcionario != null) {
-            repositorio.delete(Funcionario);
+    public void excluirFuncionario(Funcionario funcionario) {
+        if (funcionario != null) {
+            repositorio.delete(funcionario);
         } else {
             throw new FuncionarioException("Error - Funcionario inexistente.");
         }

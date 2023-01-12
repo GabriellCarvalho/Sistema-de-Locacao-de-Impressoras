@@ -67,7 +67,7 @@ public class FrCadPJuridica extends javax.swing.JFrame {
             MaskFormatter maskCpf = new MaskFormatter("##.###.###/####-##");
             maskCpf.install(fEdtCnpj);
         } catch (ParseException ex) {
-            Logger.getLogger(FrCadastroFuncionario.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(FrCadPJuridica.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

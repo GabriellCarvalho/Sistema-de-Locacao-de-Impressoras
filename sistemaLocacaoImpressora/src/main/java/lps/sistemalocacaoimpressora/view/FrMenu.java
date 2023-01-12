@@ -41,6 +41,7 @@ public class FrMenu extends javax.swing.JFrame {
         btnCadUsuario = new javax.swing.JButton();
         btnSair = new javax.swing.JButton();
         btnAlugar = new javax.swing.JButton();
+        btnCadFornecedor = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -82,6 +83,13 @@ public class FrMenu extends javax.swing.JFrame {
             }
         });
 
+        btnCadFornecedor.setText("Cadastro de Fornecedor");
+        btnCadFornecedor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCadFornecedorActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -89,11 +97,12 @@ public class FrMenu extends javax.swing.JFrame {
             .addComponent(btnCadastroImpressora, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(btnCadUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(btnAlugar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(btnCadFuncionario, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(btnCadFuncionario, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 457, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
-                .addGap(189, 189, 189)
+                .addGap(188, 188, 188)
                 .addComponent(btnSair)
-                .addContainerGap(196, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(btnCadFornecedor, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -104,11 +113,13 @@ public class FrMenu extends javax.swing.JFrame {
                 .addComponent(btnCadFuncionario, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnCadUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(btnCadFornecedor, javax.swing.GroupLayout.DEFAULT_SIZE, 66, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnAlugar, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnSair)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         pack();
@@ -217,9 +228,29 @@ public class FrMenu extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnAlugarActionPerformed
 
+    private void btnCadFornecedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadFornecedorActionPerformed
+        // TODO add your handling code here:
+        if (this.funcionarioController.buscarFuncionario(cpf).getCargo().equals("Administrador")) {
+            FrCadFornecedor telaCadFornecedor = new FrCadFornecedor(this);
+            telaCadFornecedor.setVisible(true);
+            this.setVisible(false);
+        } else {
+            this.permicao = "Gerente";
+            try {
+                this.funcionarioController.checkAcesso(this.cpf, permicao);
+                FrCadFornecedor telaCadFornecedor = new FrCadFornecedor(this);
+                telaCadFornecedor.setVisible(true);
+                this.setVisible(false);
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(this, ex.getMessage());
+            }
+        }
+    }//GEN-LAST:event_btnCadFornecedorActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAlugar;
+    private javax.swing.JButton btnCadFornecedor;
     private javax.swing.JButton btnCadFuncionario;
     private javax.swing.JButton btnCadUsuario;
     private javax.swing.JButton btnCadastroImpressora;
