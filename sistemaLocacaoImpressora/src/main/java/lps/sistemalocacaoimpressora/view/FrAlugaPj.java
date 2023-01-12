@@ -10,37 +10,37 @@ import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.text.MaskFormatter;
-import lps.sistemalocacaoimpressora.controller.ClienteController;
 import lps.sistemalocacaoimpressora.controller.ImpressoraController;
 import lps.sistemalocacaoimpressora.controller.LocacaoController;
-import lps.sistemalocacaoimpressora.model.Cliente;
+import lps.sistemalocacaoimpressora.controller.PJuridicaController;
 import lps.sistemalocacaoimpressora.model.Impressora;
-import lps.sistemalocacaoimpressora.model.Locacao;
+import lps.sistemalocacaoimpressora.model.LocacaoPJ;
+import lps.sistemalocacaoimpressora.model.PessoaJuridica;
 
-public class FrAlugar extends javax.swing.JFrame {
 
+public class FrAlugaPj extends javax.swing.JFrame {
+    
     JFrame telaAnterior;
     LocacaoController locacaoController;
     ImpressoraController impressoraController;
-    ClienteController clienteController;
-
+    PJuridicaController clienteController;
     /**
-     * Creates new form FrAlugar
+     * Creates new form FrAlugaPj
      */
-    public FrAlugar(JFrame telaQueChamou) {
-        this.telaAnterior = telaQueChamou;
+    public FrAlugaPj(JFrame telaQueChamou) {
+         this.telaAnterior = telaQueChamou;
         locacaoController = new LocacaoController();
         impressoraController = new ImpressoraController();
-        clienteController = new ClienteController();
+        clienteController = new PJuridicaController();
         initComponents();
-
-        locacaoController.atualizarTabelaLocacao(grdAlugar);
+        
+        locacaoController.atualizarTabelaLocacaoPJ(grdAlugar);
         impressoraController.atualizarTabela(grdImpressora);
         this.limparCampos();
         this.habilitarCampos(false);
         this.adicionarMascaraNosCampos();
     }
-
+    
     private Object getObjetoSelecionadoNaGrid() {
         int rowCliked = grdAlugar.getSelectedRow();
         Object obj = null;
@@ -72,14 +72,14 @@ public class FrAlugar extends javax.swing.JFrame {
     }
 
     public void limparCampos() {
-        edtCpf.setText("");
+        edtCnpj.setText("");
         edtTempo.setText("");
     }
 
     public void adicionarMascaraNosCampos() {
         try {
-            MaskFormatter maskCpf = new MaskFormatter("###.###.###-##");
-            maskCpf.install(edtCpf);
+            MaskFormatter maskCpf = new MaskFormatter("##.###.###/####-##");
+            maskCpf.install(edtCnpj);
         } catch (ParseException ex) {
             Logger.getLogger(FrCadastroFuncionario.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -94,51 +94,23 @@ public class FrAlugar extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        lblTitulo = new javax.swing.JLabel();
-        btnAlugar = new javax.swing.JButton();
-        btnExcluir = new javax.swing.JButton();
-        btnVoltar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         grdAlugar = new javax.swing.JTable();
         jScrollPane2 = new javax.swing.JScrollPane();
         grdImpressora = new javax.swing.JTable();
+        lblTitulo = new javax.swing.JLabel();
         panFormulario = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         edtTempo = new javax.swing.JTextField();
-        edtCpf = new javax.swing.JFormattedTextField();
+        edtCnpj = new javax.swing.JFormattedTextField();
+        btnAlugar = new javax.swing.JButton();
         btnNovo = new javax.swing.JButton();
+        btnExcluir = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
+        btnVoltar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        lblTitulo.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        lblTitulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblTitulo.setText("Alugar Impressora");
-
-        btnAlugar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/save_32x32.png"))); // NOI18N
-        btnAlugar.setText("Alugar");
-        btnAlugar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAlugarActionPerformed(evt);
-            }
-        });
-
-        btnExcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/del_32x32.png"))); // NOI18N
-        btnExcluir.setText("Excluir");
-        btnExcluir.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnExcluirActionPerformed(evt);
-            }
-        });
-
-        btnVoltar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/exit.png"))); // NOI18N
-        btnVoltar.setText("Voltar");
-        btnVoltar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnVoltarActionPerformed(evt);
-            }
-        });
 
         grdAlugar.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -166,7 +138,11 @@ public class FrAlugar extends javax.swing.JFrame {
         ));
         jScrollPane2.setViewportView(grdImpressora);
 
-        jLabel2.setText("CPF do cliente");
+        lblTitulo.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        lblTitulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblTitulo.setText("Alugar Impressora");
+
+        jLabel2.setText("CNPJ do cliente");
 
         jLabel1.setText("Tempo(em Horas)");
 
@@ -182,7 +158,7 @@ public class FrAlugar extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(panFormularioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(edtTempo)
-                    .addComponent(edtCpf, javax.swing.GroupLayout.DEFAULT_SIZE, 208, Short.MAX_VALUE))
+                    .addComponent(edtCnpj, javax.swing.GroupLayout.DEFAULT_SIZE, 208, Short.MAX_VALUE))
                 .addGap(46, 46, 46))
         );
         panFormularioLayout.setVerticalGroup(
@@ -191,13 +167,21 @@ public class FrAlugar extends javax.swing.JFrame {
                 .addGap(15, 15, 15)
                 .addGroup(panFormularioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(edtCpf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(edtCnpj, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(panFormularioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(edtTempo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1))
                 .addContainerGap(35, Short.MAX_VALUE))
         );
+
+        btnAlugar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/save_32x32.png"))); // NOI18N
+        btnAlugar.setText("Alugar");
+        btnAlugar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAlugarActionPerformed(evt);
+            }
+        });
 
         btnNovo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/novo_32x32.png"))); // NOI18N
         btnNovo.setText("Novo");
@@ -207,11 +191,27 @@ public class FrAlugar extends javax.swing.JFrame {
             }
         });
 
+        btnExcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/del_32x32.png"))); // NOI18N
+        btnExcluir.setText("Excluir");
+        btnExcluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExcluirActionPerformed(evt);
+            }
+        });
+
         btnCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/cancel_32x32.png"))); // NOI18N
         btnCancelar.setText("Cancelar");
         btnCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCancelarActionPerformed(evt);
+            }
+        });
+
+        btnVoltar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/exit.png"))); // NOI18N
+        btnVoltar.setText("Voltar");
+        btnVoltar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVoltarActionPerformed(evt);
             }
         });
 
@@ -236,7 +236,7 @@ public class FrAlugar extends javax.swing.JFrame {
                     .addComponent(btnAlugar, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(33, 33, 33)
                 .addComponent(btnVoltar)
-                .addContainerGap(51, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -280,11 +280,11 @@ public class FrAlugar extends javax.swing.JFrame {
         if (!impressora.isDisponivel()) {
             JOptionPane.showMessageDialog(this, "impressora indisponivel.");
         } else {
-            Cliente cliente = (Cliente) clienteController.buscarCliente(edtCpf.getText());
+            PessoaJuridica cliente = (PessoaJuridica) clienteController.buscarCliente(edtCnpj.getText());
             String preco = Float.toString(valor());
             try {
-                locacaoController.alugarImpressora(cliente, impressora, edtTempo.getText(), preco);
-                locacaoController.atualizarTabelaLocacao(grdAlugar);
+                locacaoController.alugarImpressoraPJ(cliente, impressora, edtTempo.getText(), preco);
+                locacaoController.atualizarTabelaLocacaoPJ(grdAlugar);
                 impressora.setDisponivel(false);
             } catch (Exception ex) {
                 System.err.println(ex.getMessage());
@@ -293,23 +293,29 @@ public class FrAlugar extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnAlugarActionPerformed
 
+    private void btnNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoActionPerformed
+        // TODO add your handling code here:
+        this.limparCampos();
+        this.habilitarCampos(true);
+    }//GEN-LAST:event_btnNovoActionPerformed
+
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
         // TODO add your handling code here:
-        Locacao locacaoExcluido = (Locacao) this.getObjetoSelecionadoNaGrid();
+        LocacaoPJ locacaoExcluido = (LocacaoPJ) this.getObjetoSelecionadoNaGrid();
         if (locacaoExcluido == null) {
             JOptionPane.showMessageDialog(this, "Primeiro selecione um registro na tabela.");
         } else {
             int response = JOptionPane.showConfirmDialog(null,
-                    "Deseja exlcuir a locacao do cliente \n("
-                    + locacaoExcluido.getCliente().getNome() + ", "
-                    + locacaoExcluido.getCliente().getCPF() + ") ?",
-                    "Confirmar exclusão",
-                    JOptionPane.OK_CANCEL_OPTION,
-                    JOptionPane.QUESTION_MESSAGE);
+                "Deseja exlcuir a locacao do cliente \n("
+                + locacaoExcluido.getCliente().getNome() + ", "
+                + locacaoExcluido.getCliente().getCNPJ() + ") ?",
+                "Confirmar exclusão",
+                JOptionPane.OK_CANCEL_OPTION,
+                JOptionPane.QUESTION_MESSAGE);
             if (response == JOptionPane.OK_OPTION) {
                 try {
-                    locacaoController.excluirLocacao(locacaoExcluido);
-                    locacaoController.atualizarTabelaLocacao(grdAlugar);
+                    locacaoController.excluirLocacaoPJ(locacaoExcluido);
+                    locacaoController.atualizarTabelaLocacaoPJ(grdAlugar);
                     JOptionPane.showMessageDialog(this, "Exclusão feita com sucesso!");
                 } catch (Exception ex) {
                     JOptionPane.showMessageDialog(this, ex.getMessage());
@@ -318,23 +324,17 @@ public class FrAlugar extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnExcluirActionPerformed
 
-    private void btnVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVoltarActionPerformed
-        // TODO add your handling code here:
-        this.telaAnterior.setVisible(true);
-        this.setVisible(false);
-    }//GEN-LAST:event_btnVoltarActionPerformed
-
-    private void btnNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoActionPerformed
-        // TODO add your handling code here:
-        this.limparCampos();
-        this.habilitarCampos(true);
-    }//GEN-LAST:event_btnNovoActionPerformed
-
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         // TODO add your handling code here:
         this.limparCampos();
         this.habilitarCampos(false);
     }//GEN-LAST:event_btnCancelarActionPerformed
+
+    private void btnVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVoltarActionPerformed
+        // TODO add your handling code here:
+        this.telaAnterior.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_btnVoltarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -343,7 +343,7 @@ public class FrAlugar extends javax.swing.JFrame {
     private javax.swing.JButton btnExcluir;
     private javax.swing.JButton btnNovo;
     private javax.swing.JButton btnVoltar;
-    private javax.swing.JFormattedTextField edtCpf;
+    private javax.swing.JFormattedTextField edtCnpj;
     private javax.swing.JTextField edtTempo;
     private javax.swing.JTable grdAlugar;
     private javax.swing.JTable grdImpressora;

@@ -23,6 +23,7 @@ public class Impressora implements Serializable {
     private String modelo;
     private String tipo;
     private boolean colorida;
+    private boolean disponivel;
 
     public Impressora() {
         this.id = -1;
@@ -31,6 +32,7 @@ public class Impressora implements Serializable {
         this.modelo = "";
         this.tipo = "";
         this.colorida = false;
+        this.disponivel = true;
     }
 
     public Impressora(String nome, String marca, String modelo, String tipo, boolean colorida) {

@@ -6,18 +6,17 @@ package lps.sistemalocacaoimpressora.controller;
 
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
-import lps.sistemalocacaoimpressora.model.Locacao;
+import lps.sistemalocacaoimpressora.model.LocacaoPJ;
 
-public class TMCadLocacao extends AbstractTableModel {
-
-    private List<Locacao> lista;
+public class TMCadLocacaoPJ extends AbstractTableModel {
+    private List<LocacaoPJ> lista;
     private final int COL_CLIENTE_N = 0;
     private final int COL_CLIENTE_C = 1;
     private final int COL_IMPRESSORAS = 2;
     private final int COL_TEMPO = 3;
     private final int COL_VALOR = 4;
 
-    public TMCadLocacao(List<Locacao> lstLocacao) {
+    public TMCadLocacaoPJ(List<LocacaoPJ> lstLocacao) {
         lista = lstLocacao;
     }
     
@@ -33,11 +32,11 @@ public class TMCadLocacao extends AbstractTableModel {
 
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
-        Locacao locacao = new Locacao();
+        LocacaoPJ locacao = new LocacaoPJ();
         if (lista.isEmpty()) {
             return locacao;
         } else {
-            locacao = (Locacao) lista.get(rowIndex);
+            locacao = (LocacaoPJ) lista.get(rowIndex);
 
             switch (columnIndex) {
                 case -1:
@@ -45,7 +44,7 @@ public class TMCadLocacao extends AbstractTableModel {
                 case COL_CLIENTE_N:
                     return locacao.getCliente().getNome();
                 case COL_CLIENTE_C:
-                    return locacao.getCliente().getCPF();
+                    return locacao.getCliente().getCNPJ();
                 case COL_IMPRESSORAS:
                     return locacao.getImpressora();
                 case COL_TEMPO:
@@ -71,7 +70,7 @@ public class TMCadLocacao extends AbstractTableModel {
             case COL_CLIENTE_N:
                 return "Nome do cliente";
             case COL_CLIENTE_C:
-                    return "CPF";
+                    return "CNPJ";
             case COL_IMPRESSORAS:
                 return "Impressora";
             case COL_TEMPO:

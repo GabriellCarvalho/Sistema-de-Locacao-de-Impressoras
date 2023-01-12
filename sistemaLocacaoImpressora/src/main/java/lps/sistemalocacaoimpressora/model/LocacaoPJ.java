@@ -15,13 +15,13 @@ import lombok.Data;
 
 @Data
 @Entity
-public class Locacao {
+public class LocacaoPJ {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     
-    @OneToOne(targetEntity = Cliente.class, fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
-    private Cliente cliente;
+    @OneToOne(targetEntity = PessoaJuridica.class, fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
+    private PessoaJuridica cliente;
     
     @OneToOne(targetEntity = Impressora.class, fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     private Impressora impressora;
@@ -32,5 +32,4 @@ public class Locacao {
     public void devolver(){
         this.impressora.setDisponivel(true);
     }
-    
 }

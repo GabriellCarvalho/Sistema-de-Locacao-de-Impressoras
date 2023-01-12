@@ -10,6 +10,7 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
 import lps.sistemalocacaoimpressora.model.Locacao;
+import lps.sistemalocacaoimpressora.model.LocacaoPJ;
 
 public class LocacaoDAO implements IDao {
 
@@ -35,10 +36,29 @@ public class LocacaoDAO implements IDao {
         }
         this.entityManager.getTransaction().commit();
     }
+    
+    public void savePJ(Object obj) {
+        LocacaoPJ locacao = (LocacaoPJ) obj;
+
+        this.entityManager.getTransaction().begin();
+        if (locacao != null && locacao.getId() > 0) {
+            this.entityManager.merge(locacao);
+        } else {
+            this.entityManager.persist(locacao);
+        }
+        this.entityManager.getTransaction().commit();
+    }
 
     @Override
     public void delete(Object obj) {
         Locacao locacao = (Locacao) obj;
+        this.entityManager.getTransaction().begin();
+        this.entityManager.remove(locacao);
+        this.entityManager.getTransaction().commit();
+    }
+    
+    public void deletePJ(Object obj) {
+        LocacaoPJ locacao = (LocacaoPJ) obj;
         this.entityManager.getTransaction().begin();
         this.entityManager.remove(locacao);
         this.entityManager.getTransaction().commit();
@@ -69,5 +89,15 @@ public class LocacaoDAO implements IDao {
 
         List lst = qry.getResultList();
         return (List<Locacao>) lst;
+    }
+    
+    public List<LocacaoPJ> findAllPJ() {
+        sql = " SELECT l "
+                + " FROM LocacaoPJ l ";
+
+        qry = this.entityManager.createQuery(sql);
+
+        List lst = qry.getResultList();
+        return (List<LocacaoPJ>) lst;
     }
 }

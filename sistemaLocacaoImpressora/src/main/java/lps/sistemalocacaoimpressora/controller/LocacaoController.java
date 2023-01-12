@@ -9,7 +9,8 @@ import javax.swing.JTable;
 import lps.sistemalocacaoimpressora.model.Cliente;
 import lps.sistemalocacaoimpressora.model.Impressora;
 import lps.sistemalocacaoimpressora.model.Locacao;
-import lps.sistemalocacaoimpressora.model.dao.ImpressoraDAO;
+import lps.sistemalocacaoimpressora.model.LocacaoPJ;
+import lps.sistemalocacaoimpressora.model.PessoaJuridica;
 import lps.sistemalocacaoimpressora.model.dao.LocacaoDAO;
 import lps.sistemalocacaoimpressora.model.exceptions.ImpressoraException;
 import lps.sistemalocacaoimpressora.model.valid.ValidateLocacao;
@@ -17,17 +18,23 @@ import lps.sistemalocacaoimpressora.model.valid.ValidateLocacao;
 public class LocacaoController {
 
     private final LocacaoDAO repositorio;
-    private final ImpressoraDAO impressora;
 
     public LocacaoController() {
         repositorio = new LocacaoDAO();
-        impressora = new ImpressoraDAO();
     }
 
-    public void alugarImpressora(Cliente cliente, Impressora impressora) {
+    public void alugarImpressora(Cliente cliente, Impressora impressora, String tempo, String valor) {
         ValidateLocacao valid = new ValidateLocacao();
-        Locacao aluga = new Locacao();
-        aluga = valid.alugar(cliente, impressora);
+        Locacao aluga;
+        aluga = valid.alugar(cliente, impressora, tempo, valor);
+        repositorio.save(aluga);
+    }
+    
+    public void alugarImpressoraPJ(PessoaJuridica cliente, Impressora impressora, String tempo, String valor) {
+        ValidateLocacao valid = new ValidateLocacao();
+        LocacaoPJ aluga;
+        aluga = valid.alugarPJ(cliente, impressora, tempo, valor);
+        repositorio.savePJ(aluga);
     }
     
     
@@ -38,9 +45,26 @@ public class LocacaoController {
         grd.setModel(tmLocacao);
     }
     
+    public void atualizarTabelaLocacaoPJ(JTable grd) {
+        List<LocacaoPJ> lst = repositorio.findAllPJ();
+        
+        TMCadLocacaoPJ tmLocacao = new TMCadLocacaoPJ(lst);
+        grd.setModel(tmLocacao);
+    }
+    
     public void excluirLocacao(Locacao locacao) {
         if(locacao != null) {
             repositorio.delete(locacao);
+            locacao.devolver();
+        } else {
+            throw new ImpressoraException("Error - registro de aluguel nao encontrado.");
+        }  
+    }
+    
+    public void excluirLocacaoPJ(LocacaoPJ locacao) {
+        if(locacao != null) {
+            repositorio.deletePJ(locacao);
+            locacao.devolver();
         } else {
             throw new ImpressoraException("Error - registro de aluguel nao encontrado.");
         }  
