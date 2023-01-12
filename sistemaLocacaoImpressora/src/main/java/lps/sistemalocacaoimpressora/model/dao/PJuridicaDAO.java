@@ -71,12 +71,12 @@ public class PJuridicaDAO implements IDao {
     }
     
      public Object findByCnpj(String cnpj) {
-        sql = " SELECT c "
-                + " FROM Cliente c "
-                + " WHERE cpf like :cpf ";
+        sql = " SELECT pj "
+                + " FROM PessoaJuridica pj "
+                + " WHERE cnpj like :cnpj ";
 
         qry = this.entityManager.createQuery(sql);
-        qry.setParameter("cpf", cnpj);
+        qry.setParameter("cnpj", cnpj);
         List lst = qry.getResultList();
 
         if (lst.isEmpty()) {
